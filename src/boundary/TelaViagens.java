@@ -1,11 +1,8 @@
 package boundary;
 
-import java.util.Date;
-
 import entity.Compra;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
