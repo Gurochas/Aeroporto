@@ -8,7 +8,6 @@ public class ControleTelas {
 	
 	private BorderPane telaPrincipal = new BorderPane();
 	
-	//pau no cu do java
 	//Telas Secundarias
 	private TelaCadastro tCadastro = new TelaCadastro();
 	private TelaLogin tLogin = new TelaLogin();
