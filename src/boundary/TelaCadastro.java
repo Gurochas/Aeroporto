@@ -6,9 +6,12 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 
 public class TelaCadastro extends TelaMaeDog
 				implements SubTela, EventHandler<ActionEvent> {
@@ -17,10 +20,10 @@ public class TelaCadastro extends TelaMaeDog
 	@Override
 	public Pane gerarTela() {
 		
-		// Pane Principal - Retorno
-		BorderPane telaPrincipal = new BorderPane();
-				
 		GridPane gp = new GridPane();
+		gp.setBackground(new Background(new BackgroundFill( Color.LIGHTBLUE,null,null)));
+		
+		
 		Button btnCadastro = new Button("Cadastrar");
 
 		TextField txtNome = new TextField();
@@ -58,6 +61,7 @@ public class TelaCadastro extends TelaMaeDog
 
 		btnCadastro.setOnAction(this);
 		
+		BorderPane telaPrincipal = new BorderPane();
 		telaPrincipal.setLeft(super.gerarTelaEsq());
 		telaPrincipal.setRight(gp);
 		
@@ -67,7 +71,7 @@ public class TelaCadastro extends TelaMaeDog
 
 	@Override
 	public void handle(ActionEvent e) {
-		TelaControle tControl = TelaControle.getTelaControle();
+		ControleTelas tControl = ControleTelas.getControleTelas();
 		tControl.trocarTela("");
 	}
 

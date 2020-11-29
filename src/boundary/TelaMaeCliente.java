@@ -1,6 +1,7 @@
 package boundary;
 
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
@@ -11,7 +12,7 @@ import javafx.scene.paint.Color;
 
 public class TelaMaeCliente {
 	
-	private static TelaControle tControle = TelaControle.getTelaControle();
+	private static ControleTelas tControle = ControleTelas.getControleTelas();
 	
     public Pane gerarTelaEsq(String tela) {
     	VBox vb = new VBox ();
@@ -22,6 +23,7 @@ public class TelaMaeCliente {
         logo.setFitWidth(300);
         vb.getChildren().add(logo);
         
+        vb.setAlignment(Pos.TOP_CENTER);
         vb.setPadding(new Insets(30, 0, 0, 0));
         
         vb.setBackground(new Background(new BackgroundFill( Color.ALICEBLUE,null,null)));     
@@ -29,6 +31,7 @@ public class TelaMaeCliente {
         Image imgCompra = new Image(getClass().getResourceAsStream("/Botoes/comprinha.jpg"));
         Image imgClickedCompra = new Image(getClass().getResourceAsStream("/Botoes/comprar cliquinho.jpg"));
         ImageView imgvCompra = new ImageView(imgCompra);
+       
         
         Image imgCompHistorico = new Image(getClass().getResourceAsStream("/Botoes/historico.jpg"));
         Image imgClickedHistorico = new Image(getClass().getResourceAsStream("/Botoes/historico clicado.jpg"));

@@ -10,15 +10,21 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 
 public class TelaViagens extends TelaMaeAdm implements SubTela {
 
     @Override
     public Pane gerarTela() {
+    	
         GridPane gp = new GridPane();
+        
+        gp.setBackground(new Background(new BackgroundFill( Color.LIGHTBLUE,null,null)));
 
         TextField txtData = new TextField();
         TextField txtHSaida = new TextField();
@@ -68,17 +74,17 @@ public class TelaViagens extends TelaMaeAdm implements SubTela {
 
         table.getColumns().addAll(colData, colHChegada, colHSaida, colCodAviao, colDestino);
 
-        table.resizeColumn(colData, 100);
-        table.resizeColumn(colHChegada, 100);
-        table.resizeColumn(colHSaida, 100);
-        table.resizeColumn(colCodAviao, 100);
-        table.resizeColumn(colDestino, 100);
-
-        colData.setResizable(false);
-        colHChegada.setResizable(false);
-        colHSaida.setResizable(false);
-        colCodAviao.setResizable(false);
-        colDestino.setResizable(false);
+//        table.resizeColumn(colData, 100);
+//        table.resizeColumn(colHChegada, 100);
+//        table.resizeColumn(colHSaida, 100);
+//        table.resizeColumn(colCodAviao, 100);
+//        table.resizeColumn(colDestino, 100);
+//
+//        colData.setResizable(false);
+//        colHChegada.setResizable(false);
+//        colHSaida.setResizable(false);
+//        colCodAviao.setResizable(false);
+//        colDestino.setResizable(false);
 
         BorderPane telaPrincipal = new BorderPane();
 

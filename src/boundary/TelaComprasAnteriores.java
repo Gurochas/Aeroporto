@@ -5,8 +5,11 @@ import java.util.Date;
 import entity.Compra;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 
 public class TelaComprasAnteriores extends TelaMaeCliente
 						implements SubTela {

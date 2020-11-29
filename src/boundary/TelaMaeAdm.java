@@ -1,6 +1,7 @@
 package boundary;
 
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
@@ -11,7 +12,7 @@ import javafx.scene.paint.Color;
 
 public class TelaMaeAdm {
 	
-	private static TelaControle tControle = TelaControle.getTelaControle();
+	private static ControleTelas tControle = ControleTelas.getControleTelas();
 	
 	public Pane gerarTelaEsq(String tela) {
     	VBox vb = new VBox ();
@@ -20,6 +21,8 @@ public class TelaMaeAdm {
         ImageView logo = new ImageView(imagee);
         logo.setFitHeight(100);
         logo.setFitWidth(300);
+        
+        vb.setAlignment(Pos.TOP_CENTER);
         vb.getChildren().add(logo);
         
         vb.setPadding(new Insets(30, 0, 0, 0));
@@ -42,11 +45,11 @@ public class TelaMaeAdm {
         ImageView imgvSair = new ImageView(imgSair);
         
         
-        if (tela.equals("Destinos")) {
+        if (tela.equals("TelaDestinos")) {
         	botaoSelecionado(imgvViagem,imgClickedDestino);
-        }else if (tela.equals("Viagens")) {
+        }else if (tela.equals("TelaViagens")) {
     		botaoSelecionado(imgvCompViagem, imgClickedViagem);
-    	}else if (tela.equals("Avião")) {
+    	}else if (tela.equals("TelaAviao")) {
     		botaoSelecionado(imgvAviao, imgClickedAviao);
     	}
         
@@ -59,7 +62,7 @@ public class TelaMaeAdm {
         });
         
         imgvAviao.setOnMouseClicked((e) -> {
-        	tControle.trocarTela("TelaAvião");
+        	tControle.trocarTela("TelaAviao");
         });
         
         imgvSair.setOnMouseClicked((e) -> {

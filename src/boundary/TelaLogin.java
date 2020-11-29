@@ -77,7 +77,7 @@ public class TelaLogin extends TelaMaeDog implements SubTela, EventHandler<Actio
 
 	@Override
 	public void handle(ActionEvent e) {
-		TelaControle tControl = TelaControle.getTelaControle();
+		ControleTelas tControl = ControleTelas.getControleTelas();
 		if (e.getTarget() == btnCadastro) {
 			tControl.trocarTela("TelaCadastro");
 		} else if (e.getTarget() == btnLogin) {

@@ -2,9 +2,9 @@ package boundary;
 
 import javafx.scene.layout.BorderPane;
 
-public class TelaControle {
+public class ControleTelas {
 	
-	private static TelaControle instancia = null;
+	private static ControleTelas instancia = null;
 	
 	private BorderPane telaPrincipal = new BorderPane();
 	
@@ -49,14 +49,14 @@ public class TelaControle {
 		TelaPrincipal.setTelaPrincipal(telaPrincipal);
 	}
 	
-	public static TelaControle getTelaControle() {
+	public static ControleTelas getControleTelas() {
 		if (instancia == null) {
-			instancia = new TelaControle();
+			instancia = new ControleTelas();
 		}
 		return instancia;
 	}
 
-	private TelaControle () {
+	private ControleTelas () {
 	}
 	
 }

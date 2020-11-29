@@ -10,15 +10,21 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 
 public class TelaAviao extends TelaMaeAdm implements SubTela {
 
     @Override
     public Pane gerarTela() {
+    	
         GridPane gp = new GridPane();
+        
+        gp.setBackground(new Background(new BackgroundFill( Color.LIGHTBLUE,null,null)));
 
         TextField txtCodigo = new TextField();
         TextField txtEmpresa = new TextField();

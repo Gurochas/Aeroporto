@@ -41,7 +41,7 @@ Entidades -
 
 public class TelaPrincipal extends Application{
 
-	private TelaControle tControl = TelaControle.getTelaControle();
+	private ControleTelas tControl = ControleTelas.getControleTelas();
 	
 	private StackPane sp = new StackPane();
 	private static BorderPane telaPrincipal = new BorderPane();
@@ -50,7 +50,7 @@ public class TelaPrincipal extends Application{
 	public void start(Stage stage) {
 		Scene scn = new Scene(sp, 1150, 600);
 
-		tControl.trocarTela("TelaViagens");
+		tControl.trocarTela("TelaDestinos");
 		
 		Label version = new Label("Version 1.7.89");
 		sp.getChildren().addAll(telaPrincipal, version);
