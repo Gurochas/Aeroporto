@@ -1,5 +1,6 @@
 package boundary;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -7,11 +8,14 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
 public class TelaCompra extends TelaMaeCliente 
@@ -22,6 +26,8 @@ public class TelaCompra extends TelaMaeCliente
 	public Pane gerarTela() {
 		
 		GridPane gp = new GridPane();
+		GridPane gpTicket = new GridPane();
+		StackPane sp = new StackPane();
 		
 		gp.setBackground(new Background(new BackgroundFill( Color.LIGHTBLUE,null,null)));
 		
@@ -96,11 +102,38 @@ public class TelaCompra extends TelaMaeCliente
 		gp.add(cbClasse, 0, 6);
 		
 		gp.add(btnFinalizar, 1, 6);
+		Label lblTicketOrigem = new Label("São Paulo");
+		Label lblTicketDestino = new Label("Bahia");
+		Label lblTicketNome = new Label("Gabriel E. Vicente Darbone");
+		Label lblTicketDataIda = new Label("12/03/2021");
+		Label lblTicketDataVolta = new Label("17/03/2021");
+		Label lblTicketHorarioIda = new Label("12:00");
+		Label lblTicketHorarioVolta = new Label("15:00");
+		
+		 Image imgTicket = new Image(getClass().getResourceAsStream("/Imagens/ticket clicao.jpg"));
+	     ImageView imgvTicket = new ImageView(imgTicket);
+	        
+		sp.getChildren().addAll(imgvTicket, gpTicket);
+		
+		
+		gpTicket.setPadding(new Insets(300, 10, 10, 10));
+		gpTicket.add(lblTicketOrigem, 0, 0);
+		gpTicket.add(lblTicketDestino, 0, 1);
+		gpTicket.add(lblTicketNome, 0, 2);
+		gpTicket.add(lblTicketDataIda, 0, 3);
+		gpTicket.add(lblTicketDataVolta, 0, 4);
+		gpTicket.add(lblTicketHorarioIda, 0, 5);
+		gpTicket.add(lblTicketHorarioVolta, 0, 6);
+
+
+        
+
 		
 		
 		BorderPane telaPrincipal = new BorderPane();
 		telaPrincipal.setLeft(super.gerarTelaEsq("Compra"));
 		telaPrincipal.setCenter(gp);
+		telaPrincipal.setRight(sp);
 		return telaPrincipal;
 	}
 

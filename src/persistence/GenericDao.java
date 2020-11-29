@@ -13,8 +13,15 @@ public class GenericDao {
     private static final String USER = "sa";
     private static final String PASS = "SqlServer19";
     
+    
 
-    public Connection getConnection () throws ClassNotFoundException, SQLException {
+    public GenericDao(Connection c) {
+    	
+	}
+
+
+
+	public Connection getConnection () throws ClassNotFoundException, SQLException {
         Class.forName("net.sourceforge.jtds.jdbc.Driver");
         
         c = DriverManager.getConnection(
