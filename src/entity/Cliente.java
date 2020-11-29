@@ -1,12 +1,12 @@
 package entity;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Cliente {
 	private String cpf;
 	private String nome;
 	private String sobrenome;
-	private Date data_Nasc;
+	private LocalDate data_Nasc;
 	private String email;
 	private String logradouro;
 	private int numero;
@@ -38,11 +38,11 @@ public class Cliente {
 		this.sobrenome = sobrenome;
 	}
 
-	public Date getData_Nasc() {
+	public LocalDate getData_Nasc() {
 		return data_Nasc;
 	}
 
-	public void setData_Nasc(Date data_Nasc) {
+	public void setData_Nasc(LocalDate data_Nasc) {
 		this.data_Nasc = data_Nasc;
 	}
 

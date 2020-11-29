@@ -1,0 +1,41 @@
+package persistence;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class GenericDAO {
+
+	private static GenericDAO instancia = null;
+
+	private static final String hostName = "192.168.99.100";
+	private static final String dbName = "aeroporto";
+	private static final String USER = "sa";
+	private static final String PASS = "SqlServer19";
+	private static final String DRIVER = "net.sourceforge.jtds.jdbc.Driver";
+	
+	private Connection c;
+
+	public GenericDAO() {
+		try {
+			Class.forName(DRIVER);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static GenericDAO getInstance() {
+		if (instancia == null) {
+			instancia = new GenericDAO();
+		}
+		return instancia;
+	}
+
+	public Connection getConnection() throws SQLException {
+		if (c == null || c.isClosed() || !c.isValid(5)) {
+			c = DriverManager.getConnection(String.format(
+					"jdbc:jtds:sqlserver://%s:1433;databaseName=%s;user=%s;password=%s;", hostName, dbName, USER, PASS));
+		}
+		return c;
+	}
+}
