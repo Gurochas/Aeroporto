@@ -30,9 +30,6 @@ public class TelaAviao extends TelaMaeAdm implements SubTela {
         TextField txtEmpresa = new TextField();
         TextField txtModelo = new TextField();
         TextField txtQntLugares = new TextField();
-
-        
-        //gugay
         
         Button btnSalvar = new Button("Salvar Avião");
 
