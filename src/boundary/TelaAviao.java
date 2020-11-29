@@ -32,8 +32,8 @@ public class TelaAviao extends TelaMaeAdm implements SubTela {
         TextField txtQntLugares = new TextField();
 
         
-
-
+        //gugay
+        
         Button btnSalvar = new Button("Salvar Avião");
 
         gp.setAlignment(Pos.CENTER);
