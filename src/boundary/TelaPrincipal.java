@@ -36,7 +36,7 @@ Entidades -
 	Destino
 	Classe
 	Compra
- 	aaaa
+	
 */
 
 public class TelaPrincipal extends Application{

@@ -10,5 +10,6 @@ public interface IAviaoDAO {
 	public void atualizarAviao(Aviao a) throws SQLException; 
 	public void excluirAviao(Aviao a) throws SQLException; 
 	public Aviao buscarAviao(Aviao a) throws SQLException; 
+	public Aviao buscarAvioes() throws SQLException; 
 	
 }
