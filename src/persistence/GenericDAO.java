@@ -16,15 +16,11 @@ public class GenericDAO {
 	
 	private Connection c;
 
-	public GenericDAO() {
-		try {
+	public GenericDAO() throws ClassNotFoundException{
 			Class.forName(DRIVER);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
 	}
 
-	public static GenericDAO getInstance() {
+	public static GenericDAO getInstance() throws ClassNotFoundException {
 		if (instancia == null) {
 			instancia = new GenericDAO();
 		}
