@@ -2,7 +2,7 @@ package entity;
 
 public class Passagem {
 	private int codigo;
-	private int preco_Total;
+	private double preco_Total;
 	private int portao;
 	private int lugar;
 	private Cliente cliente;
@@ -27,11 +27,11 @@ public class Passagem {
 		this.codigo = codigo;
 	}
 
-	public int getPreco_Total() {
+	public double getPreco_Total() {
 		return preco_Total;
 	}
 
-	public void setPreco_Total(int preco_Total) {
+	public void setPreco_Total(double preco_Total) {
 		this.preco_Total = preco_Total;
 	}
 

@@ -1,10 +1,10 @@
 package entity;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Compra {
 	private int codigo;
-	private Date data_Compra;
+	private LocalDate data_Compra;
 	private Cliente cliente;
 
 	public int getCodigo() {
@@ -15,11 +15,11 @@ public class Compra {
 		this.codigo = codigo;
 	}
 
-	public Date getData_Compra() {
+	public LocalDate getData_Compra() {
 		return data_Compra;
 	}
 
-	public void setData_Compra(Date data_Compra) {
+	public void setData_Compra(LocalDate data_Compra) {
 		this.data_Compra = data_Compra;
 	}
 
