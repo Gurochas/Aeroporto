@@ -24,4 +24,10 @@ public class CompraDAO implements ICompraDAO {
 		ps.execute();
 		ps.close();
 	}
+
+	@Override
+	public Compra buscarCompra(Compra co) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

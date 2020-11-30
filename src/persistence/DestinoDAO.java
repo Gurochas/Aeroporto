@@ -58,7 +58,7 @@ private Connection c;
 	@Override
 	public List<Destino> buscarDestinos() throws SQLException {
 		List<Destino> listaDestinos = new ArrayList<Destino>();
-		String sql = " codigo, destino, preco FROM destino";
+		String sql = "SELECT codigo, destino, preco FROM destino";
 		PreparedStatement ps = c.prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();
 		while (rs.next()) {

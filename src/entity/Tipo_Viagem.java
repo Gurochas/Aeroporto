@@ -2,7 +2,7 @@ package entity;
 
 public class Tipo_Viagem {
 	private String tipo;
-	private int preco;
+	private double preco;
 
 	public String getTipo() {
 		return tipo;
@@ -12,11 +12,11 @@ public class Tipo_Viagem {
 		this.tipo = tipo;
 	}
 
-	public int getPreco() {
+	public double getPreco() {
 		return preco;
 	}
 
-	public void setPreco(int preco) {
+	public void setPreco(double preco) {
 		this.preco = preco;
 	}
 
