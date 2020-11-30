@@ -5,7 +5,6 @@ public class Aviao {
 	private String Empresa;
 	private String Modelo;
 	
-	//comentario
 
 	public int getCodigo() {
 		return codigo;
