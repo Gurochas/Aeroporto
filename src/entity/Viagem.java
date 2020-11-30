@@ -1,12 +1,12 @@
 package entity;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Viagem {
 	
 	private int codigo;
-	private Date data;
-	private Date hora;
+	private LocalDate data;
+	private LocalDate hora;
 	private Aviao aviao;
 	private Destino destino;
 
@@ -18,19 +18,19 @@ public class Viagem {
 		this.codigo = codigo;
 	}
 
-	public Date getData() {
+	public LocalDate getData() {
 		return data;
 	}
 
-	public void setData(Date data) {
+	public void setData(LocalDate data) {
 		this.data = data;
 	}
 
-	public Date setHora() {
+	public LocalDate getHora() {
 		return hora;
 	}
 
-	public void setHora(Date hora) {
+	public void setHora(LocalDate hora) {
 		this.hora = hora;
 	}
 
