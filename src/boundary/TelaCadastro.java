@@ -3,6 +3,7 @@ package boundary;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -11,6 +12,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
 public class TelaCadastro extends TelaMaeDog
@@ -19,11 +21,12 @@ public class TelaCadastro extends TelaMaeDog
 
 	@Override
 	public Pane gerarTela() {
-		
+		StackPane sp = new StackPane();
 		GridPane gp = new GridPane();
 		gp.setBackground(new Background(new BackgroundFill( Color.LIGHTBLUE,null,null)));
 		
-		
+		Button btnVoltar = new Button("Voltar");
+		btnVoltar.setPrefSize(90, 50);
 		Button btnCadastro = new Button("Cadastrar");
 
 		TextField txtNome = new TextField();
@@ -58,11 +61,16 @@ public class TelaCadastro extends TelaMaeDog
 		gp.add(new Label("CEP"), 1, 16);
 		gp.add(txtCep, 1, 17);
 		gp.add(btnCadastro, 1, 22);
-
+		
 		btnCadastro.setOnAction(this);
 		
+		
+		sp.getChildren().setAll(super.gerarTelaEsq(),btnVoltar);
+		sp.setAlignment(btnVoltar, Pos.BOTTOM_LEFT);
+		
+		
 		BorderPane telaPrincipal = new BorderPane();
-		telaPrincipal.setLeft(super.gerarTelaEsq());
+		telaPrincipal.setLeft(sp);
 		telaPrincipal.setRight(gp);
 		
 		return telaPrincipal;
