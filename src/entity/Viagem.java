@@ -6,11 +6,9 @@ public class Viagem {
 	
 	private int codigo;
 	private Date data;
-	private Date horario_Saida;
-	private Date horario_Chegada;
+	private Date hora;
 	private Aviao aviao;
 	private Destino destino;
-	private Tipo_Viagem tipo_viagem;
 
 	public int getCodigo() {
 		return codigo;
@@ -28,21 +26,14 @@ public class Viagem {
 		this.data = data;
 	}
 
-	public Date getHorario_Saida() {
-		return horario_Saida;
+	public Date setHora() {
+		return hora;
 	}
 
-	public void setHorario_Saida(Date horario_Saida) {
-		this.horario_Saida = horario_Saida;
+	public void setHora(Date hora) {
+		this.hora = hora;
 	}
 
-	public Date getHorario_Chegada() {
-		return horario_Chegada;
-	}
-
-	public void setHorario_Chegada(Date horario_Chegada) {
-		this.horario_Chegada = horario_Chegada;
-	}
 
 	public Aviao getAviao() {
 		return aviao;
@@ -58,20 +49,6 @@ public class Viagem {
 
 	public void setDestino(Destino destino) {
 		this.destino = destino;
-	}
-
-	public Tipo_Viagem getTipo_viagem() {
-		return tipo_viagem;
-	}
-
-	public void setTipo_viagem(Tipo_Viagem tipo_viagem) {
-		this.tipo_viagem = tipo_viagem;
-	}
-
-	@Override
-	public String toString() {
-		return "Viagem [codigo=" + codigo + ", data=" + data + ", horario_Saida=" + horario_Saida + ", horario_Chegada="
-				+ horario_Chegada + ", aviao=" + aviao + ", destino=" + destino + ", tipo_viagem=" + tipo_viagem + "]";
 	}
 
 }

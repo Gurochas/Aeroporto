@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import entity.Cliente;
 
@@ -65,7 +67,6 @@ public class ClienteDAO implements IClienteDAO {
 	@Override
 	public Cliente buscarCliente(Cliente cl) throws SQLException {
 		
-
 		String sql = "SELECT cpf, nome, sobrenome, data_nasc, email, numero, logradouro, bairro, cep FROM cliente WHERE cpf = ?";
 		
 		PreparedStatement ps = c.prepareStatement(sql);
@@ -93,6 +94,34 @@ public class ClienteDAO implements IClienteDAO {
 		rs.close();
 		ps.close();
 		return cl;
+	}
+
+	@Override
+	public List<Cliente> buscarClientes() throws SQLException {
+
+		List<Cliente> listaCliente = new ArrayList<Cliente>();
+		String sql = "SELECT cpf, nome, sobrenome, data_nasc, email, numero, logradouro, bairro, cep FROM cliente";
+		PreparedStatement ps = c.prepareStatement(sql);
+		ResultSet rs = ps.executeQuery();
+		while (rs.next()) {
+			Cliente cl = new Cliente();
+			cl.setCpf(rs.getString("cpf"));
+			cl.setNome(rs.getString("nome"));
+			cl.setSobrenome(rs.getString("sobrenome"));
+			cl.setData_Nasc(rs.getDate("nascimento").toLocalDate());
+			cl.setEmail(rs.getString("email"));
+			cl.setNumero(rs.getInt("numero"));
+			cl.setLogradouro(rs.getString("logradouro"));
+			cl.setBairro(rs.getString("bairro"));
+			cl.setCep(rs.getString("cep"));
+			
+			listaCliente.add(cl);
+		}
+		
+		rs.close();
+		ps.close();
+
+		return listaCliente;
 	}
 
 }

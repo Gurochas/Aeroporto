@@ -19,45 +19,6 @@ public class TelaViagens extends TelaMaeAdm implements SubTela {
     @Override
     public Pane gerarTela() {
     	
-        GridPane gp = new GridPane();
-        
-        gp.setBackground(new Background(new BackgroundFill( Color.LIGHTBLUE,null,null)));
-
-        TextField txtData = new TextField();
-        TextField txtHSaida = new TextField();
-        TextField txtHChegada = new TextField();
-        TextField txtCodAviao = new TextField();
-        TextField txtDestino = new TextField();
-
-
-        
-
-
-        Button btnSalvar = new Button("Salvar Avião");
-
-        gp.setAlignment(Pos.CENTER);
-        gp.setVgap(5);
-
-        txtData.setMinWidth(200);
-
-        gp.add(new Label("Data"), 0, 0);
-        gp.add(txtData, 0, 1);
-
-        gp.add(new Label("Horario saída"), 0, 2);
-        gp.add(txtHSaida, 0, 3);
-        
-        gp.add(new Label("Horário chegada"), 0, 4);
-        gp.add(txtHChegada, 0, 5);
-        
-        gp.add(new Label("Codigo Avião"), 0, 6);
-        gp.add(txtCodAviao, 0, 7);
-        
-        gp.add(new Label("Destino"), 0, 8);
-        gp.add(txtDestino, 0, 9);
-
-        btnSalvar.setPrefSize(150, 20);
-        gp.add(btnSalvar, 0, 14);
-
         TableView<Compra> table = new TableView<>(); 
 
         table.setPrefWidth(362);
@@ -86,8 +47,7 @@ public class TelaViagens extends TelaMaeAdm implements SubTela {
         BorderPane telaPrincipal = new BorderPane();
 
         telaPrincipal.setLeft(super.gerarTelaEsq("TelaViagens"));
-        telaPrincipal.setCenter(gp);
-        telaPrincipal.setRight(table);
+        telaPrincipal.setCenter(table);
         return telaPrincipal;
     }
 

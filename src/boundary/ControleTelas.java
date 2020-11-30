@@ -19,7 +19,6 @@ public class ControleTelas {
 	private TelaDestinos tDestinos = new TelaDestinos();
 	
 	public void trocarTela(String cmd) {
-		
 		if (cmd.equals("TelaCadastro")) {
 			telaPrincipal =  (BorderPane) tCadastro.gerarTela();
 			
