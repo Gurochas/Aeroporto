@@ -3,7 +3,7 @@ package entity;
 public class Destino {
 	private int codigo;
 	private String Destino;
-	private int preco;
+	private double preco;
 
 	public int getCodigo() {
 		return codigo;
@@ -21,11 +21,11 @@ public class Destino {
 		this.Destino = Destino;
 	}
 
-	public int getPreco() {
+	public double getPreco() {
 		return preco;
 	}
 
-	public void setPreco(int preco) {
+	public void setPreco(double preco) {
 		this.preco = preco;
 	}
 
