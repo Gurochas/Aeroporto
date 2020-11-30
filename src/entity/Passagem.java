@@ -9,6 +9,15 @@ public class Passagem {
 	private Viagem viagem;
 	private Compra compra;
 	private Classe classe;
+	private Tipo_Viagem tipo_viagem;
+
+	public Tipo_Viagem getTipo_viagem() {
+		return tipo_viagem;
+	}
+
+	public void setTipo_viagem(Tipo_Viagem tipo_viagem) {
+		this.tipo_viagem = tipo_viagem;
+	}
 
 	public int getCodigo() {
 		return codigo;

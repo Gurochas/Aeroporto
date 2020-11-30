@@ -21,7 +21,6 @@ public class Destino {
 		this.Destino = Destino;
 	}
 
-
 	public int getPreco() {
 		return preco;
 	}
