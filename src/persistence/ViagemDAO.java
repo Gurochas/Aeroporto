@@ -2,8 +2,12 @@ package persistence;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
+import entity.Cliente;
 import entity.Viagem;
 
 public class ViagemDAO implements IViagemDAO{
@@ -29,15 +33,82 @@ public class ViagemDAO implements IViagemDAO{
 	}
 
 	@Override
-	public Viagem buscarViagem(Viagem v) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+	public Viagem buscarViagem(Viagem v) throws SQLException, ClassNotFoundException {
+		
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT v.codigo, v.data, v.hora, v.aviao_codigo, v.destino_codigo ");
+		sql.append("FROM viagem v, passagem p, cliente c ");
+		sql.append("WHERE p.cliente_cpf = c.cpf ");
+		sql.append("AND p.codigo_viagem = v.codigo ");
+		sql.append("AND p.codigo_viagem = ? ");
+		
+		PreparedStatement ps = c.prepareStatement(sql.toString());
+		
+		ps.setInt(1, v.getCodigo());
+		
+		ResultSet rs = ps.executeQuery();
+		
+		boolean verf = false;
+		if(rs.next()) {
+			v.setCodigo(rs.getInt("codigo"));
+			v.setData(rs.getDate("data").toLocalDate());
+			v.setHora(rs.getDate("hora").toLocalDate());
+			
+			AviaoDAO a = new AviaoDAO();
+			v.getAviao().setCodigo(rs.getInt("aviao_codigo"));
+			v.setAviao(a.buscarAviao(v.getAviao()));
+			
+			DestinoDAO d = new DestinoDAO();
+			v.getDestino().setCodigo(rs.getInt("destino_codigo"));
+			v.setDestino(d.buscarDestino(v.getDestino()));
+			verf = true;
+			
+		}
+		if (verf = false) {
+			v = new Viagem();
+		}
+		
+		ps.close();
+		rs.close();
+		
+		return v;
 	}
 
 	@Override
-	public Viagem buscarViagens() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Viagem>buscarViagens() throws SQLException, ClassNotFoundException {
+		List<Viagem> listaViagem = new ArrayList<Viagem>();
+		
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT v.codigo, v.data, v.hora, v.aviao_codigo, v.destino_codigo ");
+		sql.append("FROM viagem v, passagem p, cliente c ");
+		sql.append("WHERE p.cliente_cpf = c.cpf ");
+		sql.append("AND p.codigo_viagem = v.codigo ");
+		
+		PreparedStatement ps = c.prepareStatement(sql.toString());
+		ResultSet rs = ps.executeQuery();
+		
+		AviaoDAO a = new AviaoDAO();
+		DestinoDAO d = new DestinoDAO();
+		while(rs.next()) {
+			Viagem v = new Viagem();
+			v.setCodigo(rs.getInt("codigo"));
+			v.setData(rs.getDate("data").toLocalDate());
+			v.setHora(rs.getDate("hora").toLocalDate());
+			
+			v.getAviao().setCodigo(rs.getInt("aviao_codigo"));
+			v.setAviao(a.buscarAviao(v.getAviao()));
+			
+			
+			v.getDestino().setCodigo(rs.getInt("destino_codigo"));
+			v.setDestino(d.buscarDestino(v.getDestino()));
+			
+			listaViagem.add(v);
+		}
+
+		ps.close();
+		rs.close();
+		
+		return listaViagem;
 	}
 	
 

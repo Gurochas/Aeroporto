@@ -20,7 +20,7 @@ public class AviaoDAO implements IAviaoDAO {
 
 	@Override
 	public void inserirAviao(Aviao a) throws SQLException {
-		String sql = "INSERT INTO Aviao (codigo, empresa, modelo, qtd_lugares, preco, lugares) VALUES (?,?,?,?,?,?)";
+		String sql = "INSERT INTO aviao (codigo, empresa, modelo, qtd_lugares, preco, lugares) VALUES (?,?,?,?,?,?)";
 		PreparedStatement ps = c.prepareStatement(sql);
 		ps.setInt(1, a.getCodigo());
 		ps.setString(2, a.getEmpresa());
@@ -35,7 +35,7 @@ public class AviaoDAO implements IAviaoDAO {
 	@Override
 	public Aviao buscarAviao(Aviao a) throws SQLException {
 		
-		String sql = "SELECT codigo, empresa, modelo, qtd_lugares, preco, lugares FROM Aviao WHERE codigo = ?";
+		String sql = "SELECT codigo, empresa, modelo, qtd_lugares, preco FROM aviao WHERE codigo = ?";
 		
 		PreparedStatement ps = c.prepareStatement(sql);
 		ps.setInt(1, a.getCodigo());
@@ -64,7 +64,7 @@ public class AviaoDAO implements IAviaoDAO {
 	public List<Aviao> buscarAvioes() throws SQLException {
 
 		List<Aviao> listaAviao = new ArrayList<Aviao>();
-		String sql = "SELECT codigo, empresa, modelo, qtd_lugares, preco, lugares FROM Aviao";
+		String sql = "SELECT codigo, empresa, modelo, qtd_lugares, preco, qtd_lugares FROM aviao";
 		PreparedStatement ps = c.prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();
 		while (rs.next()) {

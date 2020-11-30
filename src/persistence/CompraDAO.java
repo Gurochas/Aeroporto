@@ -14,9 +14,9 @@ public class CompraDAO implements ICompraDAO {
 		c = gDAO.getConnection();
 	}
 
-	@Override
+	@Override 
 	public void inserirCompra(Compra co) throws SQLException {
-		String sql = "INSERT INTO Compra (codigo, data_compra, cpf_cliente) VALUES (?,?,?)"; 
+		String sql = "INSERT INTO compra (codigo, data_compra, cpf_cliente) VALUES (?,?,?)"; 
 		PreparedStatement ps = c.prepareStatement(sql);
 		ps.setInt(1, co.getCodigo());
 		ps.setDate(2, java.sql.Date.valueOf(co.getData_Compra()));
