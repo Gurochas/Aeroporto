@@ -40,7 +40,7 @@ public class ViagemDAO implements IViagemDAO{
 		sql.append("FROM viagem v, passagem p, cliente c ");
 		sql.append("WHERE p.cliente_cpf = c.cpf ");
 		sql.append("AND p.codigo_viagem = v.codigo ");
-		sql.append("AND p.codigo_viagem = ? ");
+		sql.append("AND v.codigo = ? ");
 		
 		PreparedStatement ps = c.prepareStatement(sql.toString());
 		
