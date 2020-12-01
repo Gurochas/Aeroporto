@@ -50,7 +50,7 @@ public class TelaPrincipal extends Application{
 	public void start(Stage stage) {
 		Scene scn = new Scene(sp, 1150, 600);
 
-		tControl.trocarTela("TelaDestinos");
+		tControl.trocarTela("TelaCompra");
 		
 		Label version = new Label("Version 1.7.89");
 		sp.getChildren().addAll(telaPrincipal, version);

@@ -98,7 +98,8 @@ public class TelaCompra extends TelaMaeCliente implements SubTela {
 
 		gp.add(lblClasse, 0, 5);
 		gp.add(cbClasse, 0, 6);
-
+	
+		
 		gp.add(btnFinalizar, 1, 6);
 		Label lblTicketOrigem = new Label("São Paulo");
 		lblTicketOrigem.setFont(new Font("Arial", 16));
@@ -118,23 +119,23 @@ public class TelaCompra extends TelaMaeCliente implements SubTela {
 		Label lblTicketHorarioIda = new Label("12:00");
 		lblTicketHorarioIda.setFont(new Font("Arial", 16));
 		lblTicketHorarioIda.setTextFill(Color.WHITE);
-		Label lblTicketHorarioVolta = new Label("15:00");
-		lblTicketHorarioVolta.setFont(new Font("Arial", 16));
-		lblTicketHorarioVolta.setTextFill(Color.WHITE);
+		Label lblTicketClasse = new Label("Standard");
+		lblTicketClasse.setFont(new Font("Arial", 16));
+		lblTicketClasse.setTextFill(Color.WHITE);
 
 		Image imgTicket = new Image(getClass().getResourceAsStream("/Imagens/ticket clicao.jpg"));
 		ImageView imgvTicket = new ImageView(imgTicket);
 
 		sp.getChildren().addAll(imgvTicket, gpTicket);
-
-		gpTicket.setPadding(new Insets(300, 30, 30, 30));
+		gpTicket.setVgap(5);
+		gpTicket.setPadding(new Insets(140, 30, 30, 60));
 		gpTicket.add(lblTicketOrigem, 0, 0);
-		gpTicket.add(lblTicketDestino, 0, 1);
-		gpTicket.add(lblTicketNome, 0, 2);
-		gpTicket.add(lblTicketDataIda, 0, 3);
-		gpTicket.add(lblTicketDataVolta, 0, 4);
-		gpTicket.add(lblTicketHorarioIda, 0, 5);
-		gpTicket.add(lblTicketHorarioVolta, 0, 6);
+		gpTicket.add(lblTicketDestino, 1, 0);
+		gpTicket.add(lblTicketNome, 0, 26);
+		gpTicket.add(lblTicketDataIda, 0, 46);
+		gpTicket.add(lblTicketDataVolta, 1, 46);
+		gpTicket.add(lblTicketHorarioIda, 0, 55);
+		gpTicket.add(lblTicketClasse, 1, 55);
 
 		BorderPane telaPrincipal = new BorderPane();
 		telaPrincipal.setLeft(super.gerarTelaEsq("Compra"));
