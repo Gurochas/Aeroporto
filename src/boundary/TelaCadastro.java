@@ -29,7 +29,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.util.StringConverter;
 import javafx.util.converter.IntegerStringConverter;
-import javafx.util.converter.LocalDateStringConverter;
 
 public class TelaCadastro extends TelaMaeDog
 				implements SubTela, EventHandler<ActionEvent> {
