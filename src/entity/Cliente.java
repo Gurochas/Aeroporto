@@ -13,6 +13,15 @@ public class Cliente {
 	private String bairro;
 	private String cep;
 	private double milhas_percorridas;
+	private Login login;
+
+	public Login getLogin() {
+		return login;
+	}
+
+	public void setLogin(Login login) {
+		this.login = login;
+	}
 
 	public String getCpf() {
 		return cpf;

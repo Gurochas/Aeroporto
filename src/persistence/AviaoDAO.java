@@ -13,7 +13,7 @@ public class AviaoDAO implements IAviaoDAO {
 	
 	private Connection c;
 	
-	public AviaoDAO() throws ClassNotFoundException, SQLException {
+	public AviaoDAO() throws SQLException {
 		GenericDAO gDAO = GenericDAO.getInstance();
 		c = gDAO.getConnection();
 	}

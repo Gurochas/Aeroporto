@@ -12,7 +12,7 @@ public class DestinoDAO implements IDestinoDAO{
 
 private Connection c;
 	
-	public DestinoDAO() throws ClassNotFoundException, SQLException {
+	public DestinoDAO() throws SQLException {
 		GenericDAO gDAO = GenericDAO.getInstance();
 		c = gDAO.getConnection();
 	}

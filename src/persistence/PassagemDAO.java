@@ -13,7 +13,7 @@ public class PassagemDAO implements IPassagemDAO {
 
 	private Connection c;
 
-	public PassagemDAO() throws ClassNotFoundException, SQLException {
+	public PassagemDAO() throws SQLException {
 		GenericDAO gDAO = GenericDAO.getInstance();
 		c = gDAO.getConnection();
 	}
@@ -58,7 +58,7 @@ public class PassagemDAO implements IPassagemDAO {
 	}
 
 	@Override
-	public Passagem buscarPassagem(Passagem p) throws SQLException, ClassNotFoundException {
+	public Passagem buscarPassagem(Passagem p) throws SQLException {
 
 		StringBuffer sql = new StringBuffer();
 		sql.append("SELECT p.codigo AS codigo_passagem, p.preco_total, p.portao, p.lugar, ");
@@ -113,7 +113,7 @@ public class PassagemDAO implements IPassagemDAO {
 	}
 
 	@Override
-	public List<Passagem> buscarPassagens(Passagem p) throws SQLException, ClassNotFoundException{
+	public List<Passagem> buscarPassagens(Passagem p) throws SQLException {
 		
 		List<Passagem> listaPassagens = new ArrayList<Passagem>();
 		StringBuffer sql = new StringBuffer();

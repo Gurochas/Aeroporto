@@ -11,7 +11,7 @@ public class CompraDAO implements ICompraDAO {
 	
 	private Connection c;
 	
-	public CompraDAO() throws ClassNotFoundException, SQLException {
+	public CompraDAO() throws SQLException {
 		GenericDAO gDAO = GenericDAO.getInstance();
 		c = gDAO.getConnection();
 	}

@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 
 import entity.Cliente;
+import entity.Login;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
@@ -16,22 +17,17 @@ import persistence.ClienteDAO;
 
 public class ClienteControl {
 	
-	private ClienteDAO clienteDAO;
-	
 	private StringProperty cpf = new SimpleStringProperty();
 	private StringProperty nome = new SimpleStringProperty();
 	private StringProperty sobrenome = new SimpleStringProperty();
-	private ObjectProperty<LocalDate> data_Nasc = new SimpleObjectProperty<>();
+	private ObjectProperty<LocalDate> data_Nasc = new SimpleObjectProperty<>(LocalDate.now());
 	private StringProperty email = new SimpleStringProperty();
 	private StringProperty logradouro = new SimpleStringProperty();
 	private IntegerProperty numero = new SimpleIntegerProperty();
 	private StringProperty bairro = new SimpleStringProperty();
 	private StringProperty cep = new SimpleStringProperty();
 	private DoubleProperty milhas_percorridas = new SimpleDoubleProperty();
-	
-	public ClienteControl() throws ClassNotFoundException, SQLException {
-		clienteDAO = new ClienteDAO();
-	}
+	private ObjectProperty<Login> login = new SimpleObjectProperty<>();
 	
 	public Cliente getCliente() {
 		Cliente c = new Cliente();
@@ -45,6 +41,7 @@ public class ClienteControl {
 		c.setBairro(this.bairro.get());
 		c.setCep(this.cep.get());
 		c.setMilhas_percorridas(this.milhas_percorridas.get());
+		c.setLogin(this.login.get());
 		return c;
 	}
 	
@@ -60,10 +57,12 @@ public class ClienteControl {
 			this.bairro.set(c.getBairro());
 			this.cep.set(c.getCep());
 			this.milhas_percorridas.set(c.getMilhas_percorridas());
+			this.login.set(c.getLogin());
 		}
 	}
 	
 	public void adicionar() throws SQLException {
+		ClienteDAO clienteDAO = new ClienteDAO();
 		Cliente c = getCliente();
 		clienteDAO.inserirCliente(c);
 	}
@@ -129,8 +128,11 @@ public class ClienteControl {
 	public void setMilhas_percorridasProperty (DoubleProperty milhas_percorridas) {
 		this.milhas_percorridas = milhas_percorridas;
 	} 
-	
-	
-	
+	public ObjectProperty<Login> getLogin() {
+		return login;
+	}
+	public void setLogin(ObjectProperty<Login> login) {
+		this.login = login;
+	}
 
 }

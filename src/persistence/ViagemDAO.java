@@ -14,7 +14,7 @@ public class ViagemDAO implements IViagemDAO{
 	
 	private Connection c;
 	
-	public ViagemDAO() throws ClassNotFoundException, SQLException {
+	public ViagemDAO() throws SQLException {
 		GenericDAO gDAO = GenericDAO.getInstance();
 		c = gDAO.getConnection();
 	}
@@ -33,7 +33,7 @@ public class ViagemDAO implements IViagemDAO{
 	}
 
 	@Override
-	public Viagem buscarViagem(Viagem v) throws SQLException, ClassNotFoundException {
+	public Viagem buscarViagem(Viagem v) throws SQLException {
 		
 		StringBuffer sql = new StringBuffer();
 		sql.append("SELECT v.codigo, v.data, v.hora, v.aviao_codigo, v.destino_codigo ");
@@ -75,7 +75,7 @@ public class ViagemDAO implements IViagemDAO{
 	}
 
 	@Override
-	public List<Viagem>buscarViagens() throws SQLException, ClassNotFoundException {
+	public List<Viagem>buscarViagens() throws SQLException {
 		List<Viagem> listaViagem = new ArrayList<Viagem>();
 		
 		StringBuffer sql = new StringBuffer();

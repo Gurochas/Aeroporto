@@ -4,17 +4,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
-import entity.Cliente;
 import entity.Login;
 
 public class LoginDAO implements ILoginDAO {
 	
 	private Connection c;
 	
-	public LoginDAO() throws ClassNotFoundException, SQLException {
+	public LoginDAO() throws SQLException {
 		GenericDAO gDAO = GenericDAO.getInstance();
 		c = gDAO.getConnection();
 	}
@@ -34,7 +31,7 @@ public class LoginDAO implements ILoginDAO {
 	public void atualizarLogin(Login l) throws SQLException {
 		StringBuffer sql = new StringBuffer();
 		sql.append("UPDATE usuario ");
-		sql.append("SET usuario = ?, senha = ?, permissao = ? ");
+		sql.append("SET usuario = ?, senha = ?, permissao = ?");
 		sql.append("WHERE usuario = ?");
 		
 		PreparedStatement ps = c.prepareStatement(sql.toString());

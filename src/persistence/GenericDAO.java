@@ -16,11 +16,16 @@ public class GenericDAO {
 	
 	private Connection c;
 
-	public GenericDAO() throws ClassNotFoundException{
+	public GenericDAO() {
+		try {
 			Class.forName(DRIVER);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			System.out.println("SQL: Erro ao encontrar a classe");
+		}
 	}
 
-	public static GenericDAO getInstance() throws ClassNotFoundException {
+	public static GenericDAO getInstance() {
 		if (instancia == null) {
 			instancia = new GenericDAO();
 		}
@@ -28,7 +33,7 @@ public class GenericDAO {
 	}
 
 	public Connection getConnection() throws SQLException {
-		if (c == null || c.isClosed() || !c.isValid(5)) {
+		if (c == null || c.isClosed()) {
 			c = DriverManager.getConnection(String.format(
 					"jdbc:jtds:sqlserver://%s:1433;databaseName=%s;user=%s;password=%s;", hostName, dbName, USER, PASS));
 		}

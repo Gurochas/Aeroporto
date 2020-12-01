@@ -13,7 +13,7 @@ public class ClienteDAO implements IClienteDAO {
 	
 	private Connection c;
 	
-	public ClienteDAO() throws ClassNotFoundException, SQLException {
+	public ClienteDAO() throws SQLException {
 		GenericDAO gDAO = GenericDAO.getInstance();
 		c = gDAO.getConnection();
 	}
