@@ -1,5 +1,6 @@
 package boundary;
 
+import control.LoginControl;
 import javafx.scene.layout.BorderPane;
 
 public class ControleTelas {

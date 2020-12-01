@@ -29,7 +29,7 @@ public class PassagemDAO implements IPassagemDAO {
 		ps.setString(5, p.getCliente().getCpf());
 		ps.setInt(6, p.getViagem().getCodigo());
 		ps.setString(7, p.getClasse().getTipo());
-		ps.setString(8, p.getTipo_viagem().getTipo());
+		ps.setString(8, p.getTipo_viagem());
 		ps.execute();
 		ps.close();
 	}
@@ -50,7 +50,7 @@ public class PassagemDAO implements IPassagemDAO {
 		ps.setString(5, p.getCliente().getCpf());
 		ps.setInt(6, p.getViagem().getCodigo());
 		ps.setString(7, p.getClasse().getTipo());
-		ps.setString(8, p.getTipo_viagem().getTipo());
+		ps.setString(8, p.getTipo_viagem());
 		ps.setInt(9, p.getCompra().getCodigo());
 
 		ps.execute();
@@ -61,15 +61,13 @@ public class PassagemDAO implements IPassagemDAO {
 	public Passagem buscarPassagem(Passagem p) throws SQLException {
 
 		StringBuffer sql = new StringBuffer();
-		sql.append("SELECT p.codigo AS codigo_passagem, p.preco_total, p.portao, p.lugar, ");
+		sql.append("SELECT p.codigo AS codigo_passagem, p.preco_total, p.portao, p.lugar, p.tipo_viagem, ");
 		sql.append("cl.preco AS classe_preco, cl.tipo AS classe_tipo, ");
-		sql.append("t.preco AS tipo_viagem_preco, t.tipo AS tipo_viagem_tipo, ");
 		sql.append("codigo_viagem, codigo_compra ");
-		sql.append("FROM passagem p, cliente c, classe cl, tipo_viagem t ");
+		sql.append("FROM passagem p, cliente c, classe cl ");
 		sql.append("WHERE p.cliente_cpf = c.cpf ");
 		sql.append("AND p.tipo_classe = cl.tipo ");
-		sql.append("AND p.tipo_viagem = t.tipo ");
-		sql.append("AND c.cpf = '?' ");
+		sql.append("AND c.cpf = ? ");
 		
 		PreparedStatement ps = c.prepareStatement(sql.toString());
 		ps.setString(1, p.getCliente().getCpf());
@@ -84,14 +82,11 @@ public class PassagemDAO implements IPassagemDAO {
 			p.setPreco_Total(rs.getDouble("preco_total"));
 			p.setPortao(rs.getInt("portao"));
 			p.setLugar(rs.getInt("lugar"));
+			p.setTipo_viagem(rs.getString("tipo_viagem"));
 			
 			//Classe
 			p.getClasse().setPreco(rs.getDouble("classe_preco"));
 			p.getClasse().setTipo(rs.getString("classe_tipo"));
-			
-			//Tipo Viagem
-			p.getTipo_viagem().setPreco(rs.getDouble("tipo_viagem_preco"));
-			p.getTipo_viagem().setTipo(rs.getString("tipo_viagem_tipo"));
 			
 			ViagemDAO v = new ViagemDAO();
 			p.getViagem().setCodigo(rs.getInt("codigo_viagem"));
@@ -104,7 +99,7 @@ public class PassagemDAO implements IPassagemDAO {
 			verf = true;
 			
 		}
-		if (verf = false) {
+		if (!verf) {
 			p = new Passagem();
 		}
 		ps.close();
@@ -117,15 +112,13 @@ public class PassagemDAO implements IPassagemDAO {
 		
 		List<Passagem> listaPassagens = new ArrayList<Passagem>();
 		StringBuffer sql = new StringBuffer();
-		sql.append("SELECT p.codigo AS codigo_passagem, p.preco_total, p.portao, p.lugar, ");
+		sql.append("SELECT p.codigo AS codigo_passagem, p.preco_total, p.portao, p.lugar, p.tipo_viagem, ");
 		sql.append("cl.preco AS classe_preco, cl.tipo AS classe_tipo, ");
-		sql.append("t.preco AS tipo_viagem_preco, t.tipo AS tipo_viagem_tipo, ");
 		sql.append("codigo_viagem, codigo_compra ");
-		sql.append("FROM passagem p, cliente c, classe cl, tipo_viagem t ");
+		sql.append("FROM passagem p, cliente c, classe cl ");
 		sql.append("WHERE p.cliente_cpf = c.cpf ");
 		sql.append("AND p.tipo_classe = cl.tipo ");
-		sql.append("AND p.tipo_viagem = t.tipo ");
-		sql.append("AND c.cpf = '?' ");
+		sql.append("AND c.cpf = ? ");
 		
 		PreparedStatement ps = c.prepareStatement(sql.toString());
 		ps.setString(1, p.getCliente().getCpf());
@@ -139,14 +132,11 @@ public class PassagemDAO implements IPassagemDAO {
 			p.setPreco_Total(rs.getDouble("preco_total"));
 			p.setPortao(rs.getInt("portao"));
 			p.setLugar(rs.getInt("lugar"));
+			p.setTipo_viagem(rs.getString("tipo_viagem"));
 			
 			//Classe
 			p.getClasse().setPreco(rs.getDouble("classe_preco"));
 			p.getClasse().setTipo(rs.getString("classe_tipo"));
-			
-			//Tipo Viagem
-			p.getTipo_viagem().setPreco(rs.getDouble("tipo_viagem_preco"));
-			p.getTipo_viagem().setTipo(rs.getString("tipo_viagem_tipo"));
 			
 			ViagemDAO v = new ViagemDAO();
 			p.getViagem().setCodigo(rs.getInt("codigo_viagem"));
@@ -157,7 +147,6 @@ public class PassagemDAO implements IPassagemDAO {
 			p.setCompra(c.buscarCompra(p.getCompra()));
 
 			listaPassagens.add(p);
-			
 		}
 		
 		ps.close();

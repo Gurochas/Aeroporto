@@ -45,8 +45,12 @@ public class LoginDAO implements ILoginDAO {
 
 	@Override
 	public Login buscarLogin(Login l) throws SQLException {
-		String sql = "SELECT cpf, nome, sobrenome, data_nasc, email, numero, logradouro, bairro, cep FROM cliente";
+		
+		String sql = "SELECT usuario, senha, permissao FROM usuario WHERE usuario = ? ";
 		PreparedStatement ps = c.prepareStatement(sql);
+		
+		ps.setString(1, l.getUser());
+		
 		ResultSet rs = ps.executeQuery();
 		
 		boolean verf = false; 
@@ -57,13 +61,11 @@ public class LoginDAO implements ILoginDAO {
 			verf = true;
 		}
 		
-		if (verf = false) {
-			l = new Login();
+		if (!verf) {
+			l = null;
 		}
-		
 		rs.close();
 		ps.close();
-		
 		return l;
 	}
 	

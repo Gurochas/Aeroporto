@@ -1,9 +1,18 @@
 package boundary;
 
+import java.sql.SQLException;
+
+import control.ClienteControl;
+import control.LoginControl;
+import entity.Cliente;
+import entity.Login;
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -23,6 +32,9 @@ public class TelaLogin extends TelaMaeDog implements SubTela, EventHandler<Actio
 
 	private TextField txtUsuario = new TextField();
 	private TextField txtSenha = new TextField();
+	
+	private LoginControl loginControl = new LoginControl();
+	private ClienteControl clienteControl = new ClienteControl();
 
 	@Override
 	public Pane gerarTela() {
@@ -67,12 +79,20 @@ public class TelaLogin extends TelaMaeDog implements SubTela, EventHandler<Actio
 
 		// Adicionando Grid e logo no Flow Pane
 		fp.getChildren().addAll(logo, gp);
-
+		
+		//Adicionando campos observáveis
+		vincularCampos();
+		
 		// Adicionando imagem (Viajando com cachorro) e Flow Pane no pane principal
 		telaPrincipal.setLeft(super.gerarTelaEsq());
 		telaPrincipal.setRight(fp);
 
 		return telaPrincipal;
+	}
+	
+	private void vincularCampos() {
+		Bindings.bindBidirectional(txtUsuario.textProperty(), loginControl.getUserProperty());
+		Bindings.bindBidirectional(txtSenha.textProperty(), loginControl.getPassProperty());
 	}
 
 	@Override
@@ -81,8 +101,33 @@ public class TelaLogin extends TelaMaeDog implements SubTela, EventHandler<Actio
 		if (e.getTarget() == btnCadastro) {
 			tControl.trocarTela("TelaCadastro");
 		} else if (e.getTarget() == btnLogin) {
-			tControl.trocarTela("TelaCompra");
+			try {
+				Login l = loginControl.buscar();
+				if(l.getPermission() == 1) {
+					tControl.trocarTela("TelaCompra");
+				} else if (l.getPermission() == 2){
+					tControl.trocarTela("TelaDestinos");
+				} else {
+					Alert a = new Alert(AlertType.ERROR, "Usuario ou Senha inválidos");
+					a.show();
+				}
+				
+				Cliente c = new Cliente();
+				c.setEmail(txtUsuario.getText());
+				c = clienteControl.buscar(c);
+				LoginControl.setCliente(c);
+				
+			} catch (SQLException e1) {
+				Alert a = new Alert(AlertType.ERROR, "Error");
+				a.show();
+				e1.printStackTrace();
+			}
+			limparCampos();
 		}
 	}
 
+	private void limparCampos() {
+		txtUsuario.clear();
+		txtSenha.clear();
+	}
 }

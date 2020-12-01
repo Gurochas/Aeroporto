@@ -2,6 +2,7 @@ package control;
 
 import java.sql.SQLException;
 
+import entity.Cliente;
 import entity.Login;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -11,6 +12,8 @@ import persistence.LoginDAO;
 
 public class LoginControl {
 	
+	private static Cliente cliente;
+	
 	private StringProperty user = new SimpleStringProperty();
 	private StringProperty pass = new SimpleStringProperty();
 	private IntegerProperty permission = new SimpleIntegerProperty();
@@ -19,7 +22,7 @@ public class LoginControl {
 		Login l = new Login();
 		l.setUser(this.user.get());
 		l.setPass(this.pass.get());
-		l.setPermission(1);
+		l.setPermission(this.permission.get());
 		return l;
 	}
 	
@@ -27,8 +30,15 @@ public class LoginControl {
 		if(l == null) {
 			this.user.set(l.getUser());
 			this.pass.set(l.getPass());
-			this.permission.set(1);
+			this.permission.set(l.getPermission());
 		}
+	}
+	
+	public Login buscar () throws SQLException {
+		LoginDAO loginDAO = new LoginDAO();
+		Login l = getLogin();
+		loginDAO.buscarLogin(l);
+		return l;
 	}
 	
 	public void adicionar() throws SQLException{
@@ -56,5 +66,11 @@ public class LoginControl {
 		permission = permission;
 	}
 	
-
+	public static Cliente getCliente() {
+		return LoginControl.cliente;
+	}
+	public static void setCliente(Cliente cliente) {
+		LoginControl.cliente = cliente;
+	}
+	
 }

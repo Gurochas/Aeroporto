@@ -12,7 +12,6 @@ public class Cliente {
 	private int numero;
 	private String bairro;
 	private String cep;
-	private double milhas_percorridas;
 	private Login login;
 
 	public Login getLogin() {
@@ -95,19 +94,11 @@ public class Cliente {
 		this.cep = cep;
 	}
 
-	public double getMilhas_percorridas() {
-		return milhas_percorridas;
-	}
-
-	public void setMilhas_percorridas(double milhas_percorridas) {
-		this.milhas_percorridas = milhas_percorridas;
-	}
-
 	@Override
 	public String toString() {
 		return "Cliente [cpf=" + cpf + ", nome=" + nome + ", sobrenome=" + sobrenome + ", data_Nasc=" + data_Nasc
 				+ ", email=" + email + ", logradouro=" + logradouro + ", numero=" + numero + ", bairro=" + bairro
-				+ ", cep=" + cep + ", milhas_percorridas=" + milhas_percorridas + "]";
+				+ ", cep=" + cep + ", login=" + login + "]";
 	}
 
 }

@@ -7,7 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import entity.Aviao;
 import entity.Cliente;
+import entity.Destino;
 import entity.Viagem;
 
 public class ViagemDAO implements IViagemDAO{
@@ -55,10 +57,12 @@ public class ViagemDAO implements IViagemDAO{
 			v.setHora(rs.getDate("hora").toLocalDate());
 			
 			AviaoDAO a = new AviaoDAO();
+			v.setAviao(new Aviao());
 			v.getAviao().setCodigo(rs.getInt("aviao_codigo"));
 			v.setAviao(a.buscarAviao(v.getAviao()));
 			
 			DestinoDAO d = new DestinoDAO();
+			v.setDestino(new Destino());
 			v.getDestino().setCodigo(rs.getInt("destino_codigo"));
 			v.setDestino(d.buscarDestino(v.getDestino()));
 			verf = true;
@@ -95,12 +99,15 @@ public class ViagemDAO implements IViagemDAO{
 			v.setData(rs.getDate("data").toLocalDate());
 			v.setHora(rs.getDate("hora").toLocalDate());
 			
+			v.setAviao(new Aviao());
 			v.getAviao().setCodigo(rs.getInt("aviao_codigo"));
 			v.setAviao(a.buscarAviao(v.getAviao()));
 			
-			
+			v.setDestino(new Destino());
 			v.getDestino().setCodigo(rs.getInt("destino_codigo"));
 			v.setDestino(d.buscarDestino(v.getDestino()));
+			
+			
 			
 			listaViagem.add(v);
 		}

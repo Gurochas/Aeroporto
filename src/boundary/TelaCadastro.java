@@ -160,6 +160,19 @@ public class TelaCadastro extends TelaMaeDog
 		LocalDate ld = LocalDate.parse(txtNasc.getText(), dtf);
 		clienteControl.getData_NascProperty().set(ld);
 	}
+	
+	private void limparCampos() {
+		txtNome.clear();
+		txtSobrenome.clear();
+		txtCpf.clear();
+		txtNasc.clear();
+		txtEmail.clear();
+		txtLogradouro.clear();
+		txtNumero.clear(); 
+		txtBairro.clear();
+		txtCep.clear();
+		txtSenha.clear();
+	}
 
 	@Override
 	public void handle(ActionEvent e) {
@@ -171,6 +184,7 @@ public class TelaCadastro extends TelaMaeDog
 				loginControl.adicionar();
 				Alert a = new Alert(AlertType.CONFIRMATION, "Cadastro realizado!", ButtonType.OK);
 				a.show();
+				limparCampos();
 			} catch (SQLException e1) {
 				Alert a = new Alert(AlertType.ERROR, "Erro ao gravar o contato", ButtonType.OK);
 				a.show();
@@ -178,6 +192,7 @@ public class TelaCadastro extends TelaMaeDog
 			}
 		}else {
 			tControl.trocarTela("TelaLogin");
+			limparCampos();
 		}
 		
 	}
