@@ -31,6 +31,7 @@ public class TelaAlterarCadastro extends TelaMaeCliente
 		TextField txtNumero = new TextField();
 		TextField txtBairro = new TextField();
 		TextField txtCep = new TextField();
+		TextField txtSenha = new TextField();
 		
 		Button btnSalvar = new Button("Salvar Alterações");
 		
@@ -41,6 +42,9 @@ public class TelaAlterarCadastro extends TelaMaeCliente
 		txtEmail.setMinWidth(200);
 		gp.add(new Label("Email"), 0, 0);
 		gp.add(txtEmail, 0, 1);
+		
+		gp.add(new Label("Senha"), 1, 0);
+		gp.add(txtSenha, 1, 1);
 		
 		gp.add(new Label("Nome"), 0, 2);
 		gp.add(txtNome, 0, 3);

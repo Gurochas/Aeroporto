@@ -32,13 +32,13 @@ public class TelaCompra extends TelaMaeCliente implements SubTela {
 
 		gp.setAlignment(Pos.CENTER);
 
-		Label lblOrigem = new Label("Origem");
 		Label lblDestino = new Label("Destino");
 		Label lblIda = new Label("Ida");
 		Label lblVolta = new Label("Volta");
 		Label lblClasse = new Label("Classe");
+		Label lblQtd = new Label("Quantidade");
 
-		TextField txtOrigem = new TextField();
+		TextField txtQtd = new TextField();
 		TextField txtDestino = new TextField();
 
 		CheckBox cb = new CheckBox();
@@ -62,11 +62,11 @@ public class TelaCompra extends TelaMaeCliente implements SubTela {
 		gp.setVgap(10);
 		gp.setHgap(30);
 
-		gp.add(lblOrigem, 0, 0);
-		gp.add(txtOrigem, 0, 1);
+		gp.add(lblDestino, 0, 0);
+		gp.add(txtDestino, 0, 1);
 
-		gp.add(lblDestino, 1, 0);
-		gp.add(txtDestino, 1, 1);
+		gp.add(lblQtd, 1, 0);
+		gp.add(txtQtd, 1, 1);
 
 		gp.add(cb, 0, 2);
 

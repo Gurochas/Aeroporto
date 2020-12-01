@@ -18,6 +18,8 @@ import javafx.scene.paint.Color;
 public class TelaCadastro extends TelaMaeDog
 				implements SubTela, EventHandler<ActionEvent> {
 
+	Button btnVoltar = new Button("Voltar");
+	Button btnCadastro = new Button("Cadastrar");
 
 	@Override
 	public Pane gerarTela() {
@@ -25,9 +27,7 @@ public class TelaCadastro extends TelaMaeDog
 		GridPane gp = new GridPane();
 		gp.setBackground(new Background(new BackgroundFill( Color.LIGHTBLUE,null,null)));
 		
-		Button btnVoltar = new Button("Voltar");
 		btnVoltar.setPrefSize(90, 50);
-		Button btnCadastro = new Button("Cadastrar");
 
 		TextField txtNome = new TextField();
 		TextField txtSobrenome = new TextField();
@@ -38,6 +38,8 @@ public class TelaCadastro extends TelaMaeDog
 		TextField txtNumero = new TextField();
 		TextField txtBairro = new TextField();
 		TextField txtCep = new TextField();
+		TextField txtSenha = new TextField();
+		
 		
 		gp.setPadding(new Insets(60, 105, 10, 70));
 		gp.setVgap(2);
@@ -60,6 +62,8 @@ public class TelaCadastro extends TelaMaeDog
 		gp.add(txtBairro, 1, 15);
 		gp.add(new Label("CEP"), 1, 16);
 		gp.add(txtCep, 1, 17);
+		gp.add(new Label("Senha"), 1, 18);
+		gp.add(txtSenha, 1, 19);
 		gp.add(btnCadastro, 1, 22);
 		
 		btnCadastro.setOnAction(this);
@@ -68,10 +72,11 @@ public class TelaCadastro extends TelaMaeDog
 		sp.getChildren().setAll(super.gerarTelaEsq(),btnVoltar);
 		sp.setAlignment(btnVoltar, Pos.BOTTOM_LEFT);
 		
+		btnVoltar.setOnAction(this);
 		
 		BorderPane telaPrincipal = new BorderPane();
 		telaPrincipal.setLeft(sp);
-		telaPrincipal.setRight(gp);
+		telaPrincipal.setCenter(gp);
 		
 		return telaPrincipal;
 
@@ -80,7 +85,12 @@ public class TelaCadastro extends TelaMaeDog
 	@Override
 	public void handle(ActionEvent e) {
 		ControleTelas tControl = ControleTelas.getControleTelas();
-		tControl.trocarTela("");
+		if (e.getTarget() == btnCadastro) {
+			tControl.trocarTela("");
+		}else {
+			tControl.trocarTela("TelaLogin");
+		}
+		
 	}
 
 }

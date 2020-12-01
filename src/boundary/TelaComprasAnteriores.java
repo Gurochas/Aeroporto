@@ -23,22 +23,22 @@ public class TelaComprasAnteriores extends TelaMaeCliente
 		// Criando a tabela ID precisamos criar as nossas
 		TableColumn<Compra, Integer> colCodigo = new TableColumn<>("Codigo da Compra"); 
 		TableColumn<Compra, Date> colDtCompra = new TableColumn<>("Data da Compra");
-		TableColumn<Compra, String> colOrigem = new TableColumn<>("Origem");
+		TableColumn<Compra, String> colClasse = new TableColumn<>("Classe");
 		TableColumn<Compra, String> colDestino = new TableColumn<>("Destino");
 		TableColumn<Compra, Double> colValor = new TableColumn<>("Valor");
 		
 		// Colocando as colunas na table
-		table.getColumns().addAll(colCodigo, colOrigem, colDestino, colDtCompra, colValor);
+		table.getColumns().addAll(colCodigo, colClasse, colDestino, colDtCompra, colValor);
 		
 		table.resizeColumn(colCodigo, 50);
 		table.resizeColumn(colDtCompra, 100);
 		table.resizeColumn(colDestino, 100);
-		table.resizeColumn(colOrigem, 100);
+		table.resizeColumn(colClasse, 100);
 		table.resizeColumn(colValor, 96);
 		colCodigo.setResizable(false);
 		colDtCompra.setResizable(false);
 		colDestino.setResizable(false);
-		colOrigem.setResizable(false);
+		colClasse.setResizable(false);
 		colValor.setResizable(false);
 		
 		//Pega a lista de contatos (observable arraylist) da control e coloca os dados na tabela
