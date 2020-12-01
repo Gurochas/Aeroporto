@@ -1,5 +1,6 @@
 package control;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 
 import entity.Cliente;
@@ -11,8 +12,11 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import persistence.ClienteDAO;
 
 public class ClienteControl {
+	
+	private ClienteDAO clienteDAO;
 	
 	private StringProperty cpf = new SimpleStringProperty();
 	private StringProperty nome = new SimpleStringProperty();
@@ -25,20 +29,45 @@ public class ClienteControl {
 	private StringProperty cep = new SimpleStringProperty();
 	private DoubleProperty milhas_percorridas = new SimpleDoubleProperty();
 	
+	public ClienteControl() throws ClassNotFoundException, SQLException {
+		clienteDAO = new ClienteDAO();
+	}
 	
-//	public Cliente getCliente() {
-//		Cliente c = new Cliente();
-//		c.setCpf(this.cpf.get());
-//		c.setNome(this.nome.get());
-//		c.setSobrenome(this.sobrenome.get());
-//		c.setData_Nasc(this.data_Nasc.get());
-//		c.setEmail(this.email.get());
-//		c.setLogradouro(this.logradouro.get());
-//		c.setNumero(this.numero.get());
-//		c.setBairro(this.bairro.get());
-//		c.setCep(this.cep.get());
-//		
-//	}
+	public Cliente getCliente() {
+		Cliente c = new Cliente();
+		c.setCpf(this.cpf.get());
+		c.setNome(this.nome.get());
+		c.setSobrenome(this.sobrenome.get());
+		c.setData_Nasc(this.data_Nasc.get());
+		c.setEmail(this.email.get());
+		c.setLogradouro(this.logradouro.get());
+		c.setNumero(this.numero.get());
+		c.setBairro(this.bairro.get());
+		c.setCep(this.cep.get());
+		c.setMilhas_percorridas(this.milhas_percorridas.get());
+		return c;
+	}
+	
+	public void setCliente(Cliente c) {
+		if (c != null) {
+			this.cpf.set(c.getCpf());
+			this.nome.set(c.getNome());
+			this.sobrenome.set(c.getSobrenome());
+			this.data_Nasc.set(c.getData_Nasc());
+			this.email.set(c.getEmail());
+			this.logradouro.set(c.getLogradouro());
+			this.numero.set(c.getNumero());
+			this.bairro.set(c.getBairro());
+			this.cep.set(c.getCep());
+			this.milhas_percorridas.set(c.getMilhas_percorridas());
+		}
+	}
+	
+	public void adicionar() throws SQLException {
+		Cliente c = getCliente();
+		clienteDAO.inserirCliente(c);
+	}
+	
 	
 	public StringProperty getCpfProperty() {
 		return cpf;

@@ -1,18 +1,10 @@
 package boundary;
 
 import entity.Compra;
-import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 
 public class TelaViagens extends TelaMaeAdm implements SubTela {
 
