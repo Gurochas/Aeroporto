@@ -39,6 +39,18 @@ Entidades -
 	Classe
 	Compra
 	
+Control -
+	Cliente
+		Compra
+		Compras anteriores
+		Alteracao de cadastro
+		Passagem
+	
+	Admin -
+		Destinos
+		Viagens
+		Avião
+	
 */
 
 public class TelaPrincipal extends Application{
