@@ -1,7 +1,5 @@
 package boundary;
 
-import control.ClienteControl;
-import control.LoginControl;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
