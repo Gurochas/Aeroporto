@@ -53,7 +53,6 @@ public class DestinoControl {
 		list = (ArrayList<Destino>) destinoDAO.buscarDestinos();
 		return list;
 	}
-	//d
 	
 	public IntegerProperty getCodigoProperty() {
 		return codigo;

@@ -18,6 +18,12 @@ import javafx.scene.paint.Color;
 
 public class TelaDestinos extends TelaMaeAdm implements SubTela, EventHandler<ActionEvent> {
 
+	TableView<Compra> table = new TableView<>(); 
+	
+	TableColumn<Compra, String> colID = new TableColumn<>("ID");
+    TableColumn<Compra, String> colDestino = new TableColumn<>("Destino");
+    TableColumn<Compra, Double> colPreco = new TableColumn<>("Preco");
+	
     @Override
     public Pane gerarTela() {
         GridPane gp = new GridPane();
@@ -26,6 +32,7 @@ public class TelaDestinos extends TelaMaeAdm implements SubTela, EventHandler<Ac
         
         TextField txtOrigem = new TextField();
         TextField txtDestino = new TextField();
+        TextField txtPreco = new TextField();
 
         Button btnSalvar = new Button("Salvar Destino");
         
@@ -36,28 +43,27 @@ public class TelaDestinos extends TelaMaeAdm implements SubTela, EventHandler<Ac
 
         txtOrigem.setMinWidth(200);
 
-        gp.add(new Label("Origem"), 0, 0);
-        gp.add(txtOrigem, 0, 1);
+        gp.add(new Label("Destino"), 0, 0);
+        gp.add(txtDestino, 0, 1);
 
-        gp.add(new Label("Destino"), 0, 2);
-        gp.add(txtDestino, 0, 3);
+        gp.add(new Label("Preco"), 0, 2);
+        gp.add(txtPreco, 0, 3);
+        
 
         btnSalvar.setPrefSize(150, 20);
         gp.add(btnSalvar, 0, 8);
 
-        TableView<Compra> table = new TableView<>(); 
 
         table.setPrefWidth(362);
 
-        TableColumn<Compra, String> colOrigem = new TableColumn<>("Origem");
-        TableColumn<Compra, String> colDestino = new TableColumn<>("Destino");
+        table.getColumns().addAll(colID, colDestino, colPreco);
 
-        table.getColumns().addAll(colOrigem, colDestino);
-
-        table.resizeColumn(colDestino, 100);
-        table.resizeColumn(colOrigem, 100);
+        table.resizeColumn(colID, 10);
+        table.resizeColumn(colDestino, 80);
+        table.resizeColumn(colPreco, 30);
+        colID.setResizable(false);
         colDestino.setResizable(false);
-        colOrigem.setResizable(false);
+        colPreco.setResizable(false);
 
         BorderPane telaPrincipal = new BorderPane();
 
@@ -66,6 +72,50 @@ public class TelaDestinos extends TelaMaeAdm implements SubTela, EventHandler<Ac
         telaPrincipal.setRight(table);
         
         return telaPrincipal;
+    }
+    
+    private void vincularCampos() {
+    	TableColumn<Compra, String> colID = new TableColumn<>("Origem");
+        TableColumn<Compra, String> colDestino = new TableColumn<>("Destino");    	
+        TableColumn<Compra, Double> colPreco = new TableColumn<>("Preco");
+
+        
+//        colOrigem.setCellValueFactory( new PropertyValueFactory<Contato, String> ("Origem"));
+//        private int codigo;
+//    	private String Destino;
+//    	private double preco;
+//        
+//        colDestino
+//    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
     }
 
 	@Override

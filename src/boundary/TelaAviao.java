@@ -68,8 +68,6 @@ public class TelaAviao extends TelaMaeAdm implements SubTela {
         TableColumn<Aviao, Integer> colQtdLugares = new TableColumn<>("Qtd. Lugares");
         colQtdLugares.setCellValueFactory(new PropertyValueFactory<Aviao, Integer>("Qtd. Lugares"));
         
-        
-        
     	AviaoControl ac = new AviaoControl();
 
         table.getColumns().addAll(colCodigo, colEmpresa, colModelo, colQtdLugares);
@@ -97,5 +95,5 @@ public class TelaAviao extends TelaMaeAdm implements SubTela {
         telaPrincipal.setRight(table);
         return telaPrincipal;
     }
-
+    
 }
