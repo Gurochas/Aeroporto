@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import entity.Aviao;
 import entity.Destino;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
@@ -11,6 +12,8 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import persistence.DestinoDAO;
 
 public class DestinoControl {
@@ -18,6 +21,8 @@ public class DestinoControl {
 	private IntegerProperty codigo = new SimpleIntegerProperty();
 	private StringProperty destino = new SimpleStringProperty();
 	private DoubleProperty preco = new SimpleDoubleProperty();
+	
+	private ObservableList<Destino> lista = FXCollections.observableArrayList();
 	
 	public Destino getDestino() {
 		Destino d = new Destino();
@@ -47,11 +52,11 @@ public class DestinoControl {
 		return d;
 	}
 	
-	public List<Destino> buscarDestinos() throws SQLException{
+	public ObservableList<Destino> buscarDestinos() throws SQLException{
 		DestinoDAO destinoDAO = new DestinoDAO();
-		ArrayList<Destino> list = new ArrayList<>();
-		list = (ArrayList<Destino>) destinoDAO.buscarDestinos();
-		return list;
+		lista.clear();
+		lista.addAll(destinoDAO.buscarDestinos());
+		return lista;
 	}
 	
 	public IntegerProperty getCodigoProperty() {
