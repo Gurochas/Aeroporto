@@ -20,6 +20,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
@@ -29,7 +31,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.util.StringConverter;
 import javafx.util.converter.IntegerStringConverter;
-import javafx.util.converter.LocalDateStringConverter;
 
 public class TelaCadastro extends TelaMaeDog
 				implements SubTela, EventHandler<ActionEvent> {
@@ -87,11 +88,19 @@ public class TelaCadastro extends TelaMaeDog
 		gp.add(txtSenha, 1, 19);
 		gp.add(btnCadastro, 1, 22);
 		
-		
+		gp.addEventHandler(KeyEvent.KEY_PRESSED, ev -> {
+	        if (ev.getCode() == KeyCode.ENTER) {
+	           btnCadastro.fire();
+	           ev.consume(); 
+	        }
+	    });
+
 		btnCadastro.setOnAction(this);
 		
 		sp.getChildren().setAll(super.gerarTelaEsq(),btnVoltar);
 		sp.setAlignment(btnVoltar, Pos.BOTTOM_LEFT);
+		
+		
 		
 		btnVoltar.setOnAction(this);
 		

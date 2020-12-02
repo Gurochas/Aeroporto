@@ -1,6 +1,8 @@
 package boundary;
 
 import entity.Compra;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -14,7 +16,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
-public class TelaDestinos extends TelaMaeAdm implements SubTela {
+public class TelaDestinos extends TelaMaeAdm implements SubTela, EventHandler<ActionEvent> {
 
     @Override
     public Pane gerarTela() {
@@ -25,8 +27,9 @@ public class TelaDestinos extends TelaMaeAdm implements SubTela {
         TextField txtOrigem = new TextField();
         TextField txtDestino = new TextField();
 
-
         Button btnSalvar = new Button("Salvar Destino");
+        
+        btnSalvar.setOnAction(this);
 
         gp.setAlignment(Pos.CENTER);
         gp.setVgap(5);
@@ -61,7 +64,13 @@ public class TelaDestinos extends TelaMaeAdm implements SubTela {
         telaPrincipal.setLeft(super.gerarTelaEsq("TelaDestinos"));
         telaPrincipal.setCenter(gp);
         telaPrincipal.setRight(table);
+        
         return telaPrincipal;
     }
 
+	@Override
+	public void handle(ActionEvent e) {
+		
+	}
+    
 }
