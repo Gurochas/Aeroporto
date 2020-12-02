@@ -4,13 +4,18 @@ import java.sql.SQLException;
 
 import control.AviaoControl;
 import entity.Aviao;
-import javafx.collections.ObservableList;
+import javafx.beans.binding.Bindings;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -18,82 +23,133 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.util.StringConverter;
+import javafx.util.converter.DoubleStringConverter;
+import javafx.util.converter.IntegerStringConverter;
 
-public class TelaAviao extends TelaMaeAdm implements SubTela {
-	
-    @Override
-    public Pane gerarTela() {
-    	
-        GridPane gp = new GridPane();
-        
-        gp.setBackground(new Background(new BackgroundFill( Color.LIGHTBLUE,null,null)));
+public class TelaAviao extends TelaMaeAdm implements SubTela, EventHandler<ActionEvent> {
 
-        TextField txtCodigo = new TextField();
-        TextField txtEmpresa = new TextField();
-        TextField txtModelo = new TextField();
-        TextField txtQntLugares = new TextField();
-        
-        Button btnSalvar = new Button("Salvar Avião");
+	private AviaoControl ac = new AviaoControl();
 
-        gp.setAlignment(Pos.CENTER);
-        gp.setVgap(5);
+	private TableView<Aviao> table = new TableView<>();
 
-        txtCodigo.setMinWidth(200);
+	private TextField txtEmpresa = new TextField();
+	private TextField txtModelo = new TextField();
+	private TextField txtQntLugares = new TextField();
+	private TextField txtPreco = new TextField();
 
-        gp.add(new Label("Codigo"), 0, 0);
-        gp.add(txtCodigo, 0, 1);
+	@Override
+	public Pane gerarTela() {
 
-        gp.add(new Label("Empresa"), 0, 2);
-        gp.add(txtEmpresa, 0, 3);
-        
-        gp.add(new Label("Modelo"), 0, 4);
-        gp.add(txtModelo, 0, 5);
-        
-        gp.add(new Label("Quantidade de Lugares"), 0, 6);
-        gp.add(txtQntLugares, 0, 7);
+		GridPane gp = new GridPane();
 
-        btnSalvar.setPrefSize(150, 20);
-        gp.add(btnSalvar, 0, 12);
+		gp.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, null, null)));
+		
+		vincularCampos();
 
-        TableView<Aviao> table = new TableView<>(); 
+		Button btnSalvar = new Button("Salvar Avião");
 
-        table.setPrefWidth(362);
+		gp.setAlignment(Pos.CENTER);
+		gp.setVgap(5);
 
-        TableColumn<Aviao, Integer> colCodigo = new TableColumn<>("Codigo");
-        colCodigo.setCellValueFactory(new PropertyValueFactory<Aviao, Integer>("Codigo"));
-        TableColumn<Aviao, String> colEmpresa = new TableColumn<>("Empresa");
-        colEmpresa.setCellValueFactory(new PropertyValueFactory<Aviao, String>("Empresa"));
-        TableColumn<Aviao, String> colModelo = new TableColumn<>("Modelo");
-        colEmpresa.setCellValueFactory(new PropertyValueFactory<Aviao, String>("Modelo"));
-        TableColumn<Aviao, Integer> colQtdLugares = new TableColumn<>("Qtd. Lugares");
-        colQtdLugares.setCellValueFactory(new PropertyValueFactory<Aviao, Integer>("Qtd. Lugares"));
-        
-    	AviaoControl ac = new AviaoControl();
+		txtEmpresa.setMinWidth(200);
 
-        table.getColumns().addAll(colCodigo, colEmpresa, colModelo, colQtdLugares);
-        
-        try {
+		gp.add(new Label("Empresa"), 0, 0);
+		gp.add(txtEmpresa, 0, 1);
+
+		gp.add(new Label("Modelo"), 0, 2);
+		gp.add(txtModelo, 0, 3);
+
+		gp.add(new Label("Quantidade de Lugares"), 0, 4);
+		gp.add(txtQntLugares, 0, 5);
+
+		gp.add(new Label("Preco %"), 0, 6);
+		gp.add(txtPreco, 0, 7);
+
+		btnSalvar.setPrefSize(150, 20);
+		gp.add(btnSalvar, 0, 12);
+		
+		btnSalvar.setOnAction(this);
+
+		BorderPane telaPrincipal = new BorderPane();
+
+		telaPrincipal.setLeft(super.gerarTelaEsq("TelaAviao"));
+		telaPrincipal.setCenter(gp);
+		telaPrincipal.setRight(table);
+		return telaPrincipal;
+	}
+
+	private void vincularCampos() {
+
+		StringConverter<? extends Number> integerConverter = new IntegerStringConverter();
+		StringConverter<? extends Number> doubleConverter = new DoubleStringConverter();
+
+		Bindings.bindBidirectional(txtEmpresa.textProperty(), ac.getEmpresaProperty());
+		Bindings.bindBidirectional(txtModelo.textProperty(), ac.getModeloProperty());
+		Bindings.bindBidirectional(txtQntLugares.textProperty(), ac.getQtd_lugaresProperty(),(StringConverter<Number>) integerConverter);
+		Bindings.bindBidirectional(txtPreco.textProperty(), ac.getPrecoProperty(),(StringConverter<Number>) doubleConverter);
+
+		TableColumn<Aviao, Integer> colCodigo = new TableColumn<>("Codigo");
+		colCodigo.setCellValueFactory(new PropertyValueFactory<Aviao, Integer>("codigo"));
+
+		TableColumn<Aviao, String> colEmpresa = new TableColumn<>("Empresa");
+		colEmpresa.setCellValueFactory(new PropertyValueFactory<Aviao, String>("empresa"));
+
+		TableColumn<Aviao, String> colModelo = new TableColumn<>("Modelo");
+		colModelo.setCellValueFactory(new PropertyValueFactory<Aviao, String>("modelo"));
+
+		TableColumn<Aviao, Integer> colQtdLugares = new TableColumn<>("Qtd. Lugares");
+		colQtdLugares.setCellValueFactory(new PropertyValueFactory<Aviao, Integer>("qtd_lugares"));
+
+		TableColumn<Aviao, Double> colPreco = new TableColumn<>("Preco");
+		colPreco.setCellValueFactory(new PropertyValueFactory<Aviao, Double>("preco"));
+
+		table.setPrefWidth(450);
+
+		table.resizeColumn(colCodigo, 10);
+		table.resizeColumn(colEmpresa, 10);
+		table.resizeColumn(colModelo, 10);
+		table.resizeColumn(colQtdLugares, 10);
+		table.resizeColumn(colPreco, 10);
+		colCodigo.setResizable(false);
+		colEmpresa.setResizable(false);
+		colModelo.setResizable(false);
+		colQtdLugares.setResizable(false);
+		colPreco.setResizable(false);
+
+		table.getColumns().addAll(colCodigo, colEmpresa, colModelo, colQtdLugares, colPreco);
+
+		atualizarTabela();
+	}
+
+	private void atualizarTabela() {
+		try {
 			table.setItems(ac.buscarAvioes());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
 
-        
-        table.resizeColumn(colCodigo, 100);
-        table.resizeColumn(colEmpresa, 100);
-        table.resizeColumn(colModelo, 100);
-        table.resizeColumn(colQtdLugares, 100);
-        colCodigo.setResizable(false);
-        colEmpresa.setResizable(false);
-        colModelo.setResizable(false);
-        colQtdLugares.setResizable(false);
+	private void limparCampos() {
+    	txtEmpresa.clear();
+    	txtModelo.clear();
+    	txtQntLugares.clear();
+    	txtPreco.clear();		
+	}
 
-        BorderPane telaPrincipal = new BorderPane();
+	@Override
+	public void handle(ActionEvent arg0) {
+		try {
+			ac.adicionar();
+			Alert a = new Alert(AlertType.CONFIRMATION, "Cadastro realizado!", ButtonType.OK);
+			a.show();
+			limparCampos();
+			atualizarTabela();
+		} catch (SQLException e1) {
+			Alert a = new Alert(AlertType.ERROR, "Erro ao gravar o avião", ButtonType.OK);
+			a.show();
+			e1.printStackTrace();
+		}
+	}
 
-        telaPrincipal.setLeft(super.gerarTelaEsq("TelaAviao"));
-        telaPrincipal.setCenter(gp);
-        telaPrincipal.setRight(table);
-        return telaPrincipal;
-    }
-    
 }

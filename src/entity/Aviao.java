@@ -1,9 +1,12 @@
 package entity;
 
 public class Aviao {
+	
 	private int codigo;
-	private String Empresa;
-	private String Modelo;
+	private String empresa;
+	private String modelo;
+	private int qtd_lugares;
+	private double preco;
 	
 
 	public int getCodigo() {
@@ -15,44 +18,41 @@ public class Aviao {
 	}
 
 	public String getEmpresa() {
-		return Empresa;
+		return empresa;
 	}
 
 	public void setEmpresa(String empresa) {
-		Empresa = empresa;
+		this.empresa = empresa;
 	}
 
 	public String getModelo() {
-		return Modelo;
+		return modelo;
 	}
 
 	public void setModelo(String modelo) {
-		Modelo = modelo;
+		this.modelo = modelo;
 	}
 
 	public int getQtd_lugares() {
-		return Qtd_lugares;
+		return qtd_lugares;
 	}
 
 	public void setQtd_lugares(int qtd_lugares) {
-		Qtd_lugares = qtd_lugares;
+		this.qtd_lugares = qtd_lugares;
 	}
 
 	public Double getPreco() {
-		return Preco;
+		return preco;
 	}
 
 	public void setPreco(Double preco) {
-		Preco = preco;
+		this.preco = preco;
 	}
-
-	private int Qtd_lugares;
-	private Double Preco;
 
 	@Override
 	public String toString() {
-		return "Aviao [codigo=" + codigo + ", Empresa=" + Empresa + ", Modelo=" + Modelo + ", Qtd_lugares="
-				+ Qtd_lugares + ", Preco=" + Preco + "]";
+		return "Aviao [codigo=" + codigo + ", Empresa=" + empresa + ", Modelo=" + modelo + ", Qtd_lugares="
+				+ qtd_lugares + ", Preco=" + preco + "]";
 	}
 
 }

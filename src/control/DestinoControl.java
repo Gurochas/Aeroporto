@@ -1,10 +1,7 @@
 package control;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
-import entity.Aviao;
 import entity.Destino;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
@@ -69,7 +66,7 @@ public class DestinoControl {
 		return destino;
 	}
 	public void setDestinoProperty(StringProperty destino) {
-		destino = destino;
+		this.destino = destino;
 	}
 	public DoubleProperty getPrecoProperty() {
 		return preco;

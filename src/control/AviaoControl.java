@@ -73,15 +73,15 @@ private ObservableList<Aviao> lista = FXCollections.observableArrayList();
 	
 	
 	
-	public ObservableList<Aviao> getLista() {
+	public ObservableList<Aviao> getListaProperty() {
 		return lista;
 	}
 
-	public void setLista(ObservableList<Aviao> lista) {
+	public void setListaProperty(ObservableList<Aviao> lista) {
 		this.lista = lista;
 	}
 
-	public IntegerProperty getCodigo() {
+	public IntegerProperty getCodigoProperty() {
 		return codigo;
 	}
 
@@ -89,7 +89,7 @@ private ObservableList<Aviao> lista = FXCollections.observableArrayList();
 
 
 
-	public void setCodigo(IntegerProperty codigo) {
+	public void setCodigoProperty(IntegerProperty codigo) {
 		this.codigo = codigo;
 	}
 
@@ -97,7 +97,7 @@ private ObservableList<Aviao> lista = FXCollections.observableArrayList();
 
 
 
-	public StringProperty getEmpresa() {
+	public StringProperty getEmpresaProperty() {
 		return empresa;
 	}
 
@@ -105,7 +105,7 @@ private ObservableList<Aviao> lista = FXCollections.observableArrayList();
 
 
 
-	public void setEmpresa(StringProperty empresa) {
+	public void setEmpresaProperty(StringProperty empresa) {
 		this.empresa = empresa;
 	}
 
@@ -113,7 +113,7 @@ private ObservableList<Aviao> lista = FXCollections.observableArrayList();
 
 
 
-	public StringProperty getModelo() {
+	public StringProperty getModeloProperty() {
 		return modelo;
 	}
 
@@ -121,7 +121,7 @@ private ObservableList<Aviao> lista = FXCollections.observableArrayList();
 
 
 
-	public void setModelo(StringProperty modelo) {
+	public void setModeloProperty(StringProperty modelo) {
 		this.modelo = modelo;
 	}
 
@@ -129,7 +129,7 @@ private ObservableList<Aviao> lista = FXCollections.observableArrayList();
 
 
 
-	public IntegerProperty getQtd_lugares() {
+	public IntegerProperty getQtd_lugaresProperty() {
 		return qtd_lugares;
 	}
 
@@ -137,7 +137,7 @@ private ObservableList<Aviao> lista = FXCollections.observableArrayList();
 
 
 
-	public void setQtd_lugares(IntegerProperty qtd_lugares) {
+	public void setQtd_lugaresProperty(IntegerProperty qtd_lugares) {
 		this.qtd_lugares = qtd_lugares;
 	}
 
@@ -145,7 +145,7 @@ private ObservableList<Aviao> lista = FXCollections.observableArrayList();
 
 
 
-	public DoubleProperty getPreco() {
+	public DoubleProperty getPrecoProperty() {
 		return preco;
 	}
 
@@ -153,7 +153,7 @@ private ObservableList<Aviao> lista = FXCollections.observableArrayList();
 
 
 
-	public void setPreco(DoubleProperty preco) {
+	public void setPrecoProperty(DoubleProperty preco) {
 		this.preco = preco;
 	} 
 	

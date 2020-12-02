@@ -20,11 +20,10 @@ private Connection c;
 	
 	@Override
 	public void inserirDestino(Destino d) throws SQLException {
-		String sql = "INSERT INTO Destinos (codigo, destino, preco) VALUES (?,?,?)";
+		String sql = "INSERT INTO Destino (destino, preco) VALUES (?,?)";
 		PreparedStatement ps = c.prepareStatement(sql);
-		ps.setInt(1, d.getCodigo());
-		ps.setString(2, d.getDestino());
-		ps.setDouble(3, d.getPreco());
+		ps.setString(1, d.getDestino());
+		ps.setDouble(2, d.getPreco());
 		ps.execute();
 		ps.close();		
 	}
@@ -58,7 +57,7 @@ private Connection c;
 	@Override
 	public List<Destino> buscarDestinos() throws SQLException {
 		List<Destino> listaDestinos = new ArrayList<Destino>();
-		String sql = "SELECT codigo, destino, preco FROM destino";
+		String sql = "SELECT codigo, destino, preco FROM destino ORDER BY destino";
 		PreparedStatement ps = c.prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();
 		while (rs.next()) {
