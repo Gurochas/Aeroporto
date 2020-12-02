@@ -1,12 +1,13 @@
 package entity;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class Viagem {
 	
 	private int codigo;
 	private LocalDate data;
-	private LocalDate hora;
+	private LocalTime hora;
 	private Aviao aviao;
 	private Destino destino;
 
@@ -26,11 +27,11 @@ public class Viagem {
 		this.data = data;
 	}
 
-	public LocalDate getHora() {
+	public LocalTime getHora() {
 		return hora;
 	}
 
-	public void setHora(LocalDate hora) {
+	public void setHora(LocalTime hora) {
 		this.hora = hora;
 	}
 

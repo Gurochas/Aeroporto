@@ -64,7 +64,7 @@ public class TelaPrincipal extends Application{
 	public void start(Stage stage) {
 		Scene scn = new Scene(sp, 1150, 600);
 
-		tControl.trocarTela("TelaDestinos");
+		tControl.trocarTela("TelaCompra");
 		
 		LoginControl.setCliente(new Cliente());
 		

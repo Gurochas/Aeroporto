@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import entity.Aviao;
@@ -25,7 +27,7 @@ public class ViagemDAO implements IViagemDAO{
 		PreparedStatement ps = c.prepareStatement(sql);
 		ps.setInt(1, v.getCodigo());
 		ps.setDate(2, java.sql.Date.valueOf(v.getData()));
-		ps.setDate(3, java.sql.Date.valueOf(v.getHora()));
+		ps.setTime(3, java.sql.Time.valueOf(v.getHora()));
 		ps.setInt(4, v.getAviao().getCodigo());
 		ps.setInt(5, v.getDestino().getCodigo());
 		ps.execute();
@@ -52,7 +54,7 @@ public class ViagemDAO implements IViagemDAO{
 		if(rs.next()) {
 			v.setCodigo(rs.getInt("codigo"));
 			v.setData(rs.getDate("data").toLocalDate());
-			v.setHora(rs.getDate("hora").toLocalDate());
+			v.setHora(rs.getObject("hora", LocalTime.class));
 			
 			AviaoDAO a = new AviaoDAO();
 			v.setAviao(new Aviao());
@@ -95,7 +97,7 @@ public class ViagemDAO implements IViagemDAO{
 			Viagem v = new Viagem();
 			v.setCodigo(rs.getInt("codigo"));
 			v.setData(rs.getDate("data").toLocalDate());
-			v.setHora(rs.getDate("hora").toLocalDate());
+			v.setHora(rs.getObject("hora", LocalTime.class));
 			
 			v.setAviao(new Aviao());
 			v.getAviao().setCodigo(rs.getInt("aviao_codigo"));
