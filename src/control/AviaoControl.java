@@ -12,6 +12,8 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import persistence.AviaoDAO;
 
 public class AviaoControl {
@@ -24,6 +26,7 @@ public class AviaoControl {
 	
 	
 	
+private ObservableList<Aviao> lista = FXCollections.observableArrayList();
 
 
 	public Aviao getAviao() {
@@ -61,15 +64,23 @@ public class AviaoControl {
 	}
 
 	
-	public List<Aviao> buscarAvioes() throws SQLException{
+	public ObservableList<Aviao> buscarAvioes() throws SQLException{
 		AviaoDAO aviaoDAO = new AviaoDAO();
-		ArrayList<Aviao> lista = new ArrayList<Aviao>();
-		lista = (ArrayList<Aviao>) aviaoDAO.buscarAvioes();
+		lista.clear();
+		lista.addAll(aviaoDAO.buscarAvioes());
 		return lista;
 	}
 	
 	
 	
+	public ObservableList<Aviao> getLista() {
+		return lista;
+	}
+
+	public void setLista(ObservableList<Aviao> lista) {
+		this.lista = lista;
+	}
+
 	public IntegerProperty getCodigo() {
 		return codigo;
 	}

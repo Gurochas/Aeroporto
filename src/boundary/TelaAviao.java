@@ -1,12 +1,17 @@
 package boundary;
 
-import entity.Compra;
+import java.sql.SQLException;
+
+import control.AviaoControl;
+import entity.Aviao;
+import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
@@ -15,7 +20,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
 public class TelaAviao extends TelaMaeAdm implements SubTela {
-
+	
     @Override
     public Pane gerarTela() {
     	
@@ -50,17 +55,32 @@ public class TelaAviao extends TelaMaeAdm implements SubTela {
         btnSalvar.setPrefSize(150, 20);
         gp.add(btnSalvar, 0, 12);
 
-        TableView<Compra> table = new TableView<>(); 
+        TableView<Aviao> table = new TableView<>(); 
 
         table.setPrefWidth(362);
 
-        TableColumn<Compra, String> colCodigo = new TableColumn<>("Codigo");
-        TableColumn<Compra, String> colEmpresa = new TableColumn<>("Empresa");
-        TableColumn<Compra, String> colModelo = new TableColumn<>("Modelo");
-        TableColumn<Compra, String> colQtdLugares = new TableColumn<>("Qtd. Lugares");
+        TableColumn<Aviao, Integer> colCodigo = new TableColumn<>("Codigo");
+        colCodigo.setCellValueFactory(new PropertyValueFactory<Aviao, Integer>("Codigo"));
+        TableColumn<Aviao, String> colEmpresa = new TableColumn<>("Empresa");
+        colEmpresa.setCellValueFactory(new PropertyValueFactory<Aviao, String>("Empresa"));
+        TableColumn<Aviao, String> colModelo = new TableColumn<>("Modelo");
+        colEmpresa.setCellValueFactory(new PropertyValueFactory<Aviao, String>("Modelo"));
+        TableColumn<Aviao, Integer> colQtdLugares = new TableColumn<>("Qtd. Lugares");
+        colQtdLugares.setCellValueFactory(new PropertyValueFactory<Aviao, Integer>("Qtd. Lugares"));
+        
+        
+        
+    	AviaoControl ac = new AviaoControl();
 
         table.getColumns().addAll(colCodigo, colEmpresa, colModelo, colQtdLugares);
+        
+        try {
+			table.setItems(ac.buscarAvioes());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
+        
         table.resizeColumn(colCodigo, 100);
         table.resizeColumn(colEmpresa, 100);
         table.resizeColumn(colModelo, 100);
