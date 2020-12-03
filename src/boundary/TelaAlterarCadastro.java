@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 
 import control.ClienteControl;
 import control.LoginControl;
+import entity.Login;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
@@ -14,12 +15,11 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
@@ -28,6 +28,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.util.StringConverter;
 import javafx.util.converter.IntegerStringConverter;
+import javafx.util.converter.LocalDateStringConverter;
 
 public class TelaAlterarCadastro extends TelaMaeCliente implements SubTela, EventHandler<ActionEvent> {
 
@@ -95,9 +96,10 @@ public class TelaAlterarCadastro extends TelaMaeCliente implements SubTela, Even
 		btnSalvar.setOnAction(this);
 
 		dateField(txtNasc);
-
-		vincularCampos();
+		
+		loginControl.setLogin(LoginControl.getLoginG());
 		clienteControl.setCliente(LoginControl.getCliente());
+		vincularCampos();
 
 		BorderPane telaPrincipal = new BorderPane();
 		telaPrincipal.setLeft(super.gerarTelaEsq("AlterarCadastro"));
@@ -107,7 +109,11 @@ public class TelaAlterarCadastro extends TelaMaeCliente implements SubTela, Even
 
 	private void vincularCampos() {
 		StringConverter<? extends Number> converter = new IntegerStringConverter();
-
+		
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		StringConverter<LocalDate> dateConverter = new LocalDateStringConverter(dtf, dtf);
+		
+		Bindings.bindBidirectional(txtSenha.textProperty(), loginControl.getPassProperty());
 		Bindings.bindBidirectional(txtCpf.textProperty(), clienteControl.getCpfProperty());
 		Bindings.bindBidirectional(txtNome.textProperty(), clienteControl.getNomeProperty());
 		Bindings.bindBidirectional(txtSobrenome.textProperty(), clienteControl.getSobrenomeProperty());
@@ -116,6 +122,13 @@ public class TelaAlterarCadastro extends TelaMaeCliente implements SubTela, Even
 		Bindings.bindBidirectional(txtLogradouro.textProperty(), clienteControl.getLogradouroProperty());
 		Bindings.bindBidirectional(txtNumero.textProperty(), clienteControl.getNumeroProperty(),
 				(StringConverter<Number>) converter);
+		
+		
+		Bindings.bindBidirectional(txtNasc.textProperty(), clienteControl.getData_NascProperty(),
+				dateConverter);
+		
+		Bindings.unbindBidirectional(txtNasc.textProperty(), clienteControl.getData_NascProperty());
+		
 		Bindings.bindBidirectional(txtBairro.textProperty(), clienteControl.getBairroProperty());
 		Bindings.bindBidirectional(txtCep.textProperty(), clienteControl.getCepProperty());
 		Bindings.bindBidirectional(txtSenha.textProperty(), loginControl.getPassProperty());

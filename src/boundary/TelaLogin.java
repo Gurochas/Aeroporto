@@ -92,6 +92,7 @@ public class TelaLogin extends TelaMaeDog implements SubTela, EventHandler<Actio
 	
 	private void vincularCampos() {
 		Bindings.bindBidirectional(txtUsuario.textProperty(), loginControl.getUserProperty());
+		Bindings.bindBidirectional(txtUsuario.textProperty(), clienteControl.getEmailProperty());
 		Bindings.bindBidirectional(txtSenha.textProperty(), loginControl.getPassProperty());
 	}
 
@@ -102,12 +103,12 @@ public class TelaLogin extends TelaMaeDog implements SubTela, EventHandler<Actio
 			tControl.trocarTela("TelaCadastro");
 		} else if (e.getTarget() == btnLogin) {
 			try {
-				Login l = loginControl.buscar();
+				loginControl.buscar();
+				Login l = loginControl.getLogin();
 				if(l.getPermission() == 1) {
-					Cliente c = new Cliente();
-					c.setEmail(txtUsuario.getText());
 					clienteControl.buscar();
 					LoginControl.setCliente(clienteControl.getCliente());
+					LoginControl.setLoginG(l);
 					tControl.trocarTela("TelaCompra");
 				} else if (l.getPermission() == 2){
 					tControl.trocarTela("TelaDestinos");
