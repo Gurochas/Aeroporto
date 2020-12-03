@@ -35,7 +35,6 @@ public class Viagem {
 		this.hora = hora;
 	}
 
-
 	public Aviao getAviao() {
 		return aviao;
 	}

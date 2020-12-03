@@ -5,11 +5,11 @@ public class Passagem {
 	private double preco_Total;
 	private int portao;
 	private int lugar;
+	private String tipo_viagem;
 	private Cliente cliente;
 	private Viagem viagem;
 	private Compra compra;
 	private Classe classe;
-	private String tipo_viagem;
 
 	public String getTipo_viagem() {
 		return tipo_viagem;
