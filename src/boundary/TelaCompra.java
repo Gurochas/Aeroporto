@@ -6,7 +6,11 @@ import java.time.format.DateTimeFormatter;
 import control.ClienteControl;
 import control.CompraControl;
 import control.LoginControl;
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -19,6 +23,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -29,7 +34,6 @@ public class TelaCompra extends TelaMaeCliente implements SubTela {
 	
 	Label lblTicketOrigem = new Label("São Paulo");
 	Label lblTicketDestino = new Label("");
-	Label lblTicketNome = new Label("Gabriel E. Vicente Darbone");
 	Label lblTicketDataIda = new Label("");
 	Label lblTicketHorarioIda = new Label("");
 	Label lblTicketClasse = new Label("");
@@ -46,18 +50,25 @@ public class TelaCompra extends TelaMaeCliente implements SubTela {
 		GridPane gp = new GridPane();
 		GridPane gpTicket = new GridPane();
 		StackPane sp = new StackPane();
+		
+		ColumnConstraints col1 = new ColumnConstraints();
+		col1.setPercentWidth(55);
+		gpTicket.getColumnConstraints().addAll(col1);
 
 		gp.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, null, null)));
 
 		gp.setAlignment(Pos.CENTER);
-
+		
 		vincularCampos();
 		Label lblDestino = new Label("Destino");
 		Label lblIda = new Label("Ida");
 		Label lblVolta = new Label("Volta");
 		Label lblClasse = new Label("Classe");
-		Label lblQtd = new Label("Quantidade");
+		Label lblQtd = new Label("Quantidade");	
+		
+		
 
+		Label lblTicketNome = new Label(LoginControl.getCliente().getNome() + " " + LoginControl.getCliente().getSobrenome());
 
 		CheckBox cb = new CheckBox();
 		cb.setText("Ida e volta");
@@ -125,6 +136,7 @@ public class TelaCompra extends TelaMaeCliente implements SubTela {
 		lblTicketNome.setTextFill(Color.WHITE);
 		lblTicketDataIda.setFont(new Font("Arial", 16));
 		lblTicketDataIda.setTextFill(Color.WHITE);
+		lblTicketDataVolta.setFont(new Font("Arial", 16));
 		lblTicketDataVolta.setTextFill(Color.WHITE);
 		lblTicketHorarioIda.setFont(new Font("Arial", 16));
 		lblTicketHorarioIda.setTextFill(Color.WHITE);
@@ -144,6 +156,9 @@ public class TelaCompra extends TelaMaeCliente implements SubTela {
 		gpTicket.add(lblTicketDataVolta, 1, 46);
 		gpTicket.add(lblTicketHorarioIda, 0, 55);
 		gpTicket.add(lblTicketClasse, 1, 55);
+		
+		dateField(txtIda);
+		dateField(txtVolta);
 
 		BorderPane telaPrincipal = new BorderPane();
 		telaPrincipal.setLeft(super.gerarTelaEsq("Compra"));
@@ -153,18 +168,53 @@ public class TelaCompra extends TelaMaeCliente implements SubTela {
 	}
 	
 	
-	
 	private void vincularCampos() {
 		ClienteControl cliControl = new ClienteControl();
 		cliControl.setCliente(LoginControl.getCliente());
 
-		Bindings.bindBidirectional(lblTicketNome.textProperty(), cliControl.getNomeProperty());
 		Bindings.bindBidirectional(txtDestino.textProperty(), lblTicketDestino.textProperty());
 		Bindings.bindBidirectional((txtIda).textProperty(), lblTicketDataIda.textProperty());
 		Bindings.bindBidirectional((txtVolta).textProperty(), lblTicketDataVolta.textProperty());
 		Bindings.bindBidirectional(cbClasse.valueProperty(), lblTicketClasse.textProperty());
 		//Bindings.bindBidirectional(txtLogradouro.textProperty(), lblTicketHorarioIda.textProperty());
 		
+	}
+	
+	private static void maxField(final TextField textField, final Integer length) {
+		textField.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
+				if (newValue.length() > length)
+					textField.setText(oldValue);
+			}
+		});
+	}
+
+	private static void positionCaret(final TextField textField) {
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				textField.positionCaret(textField.getText().length());
+			}
+		});
+	}
+
+	public static void dateField(final TextField textField) {
+		maxField(textField, 10);
+
+		textField.lengthProperty().addListener(new ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				if (newValue.intValue() < 11) {
+					String value = textField.getText();
+					value = value.replaceAll("[^0-9]", "");
+					value = value.replaceFirst("(\\d{2})(\\d)", "$1/$2");
+					value = value.replaceFirst("(\\d{2})\\/(\\d{2})(\\d)", "$1/$2/$3");
+					textField.setText(value);
+					positionCaret(textField);
+				}
+			}
+		});
 	}
 	
 	

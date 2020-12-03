@@ -43,6 +43,7 @@ public class LoginControl {
 	public void atualizar() throws SQLException {
 		LoginDAO loginDAO = new LoginDAO();
 		loginDAO.atualizarLogin(getLogin());
+		LoginControl.setLoginG(getLogin());
 	}
 	
 	public void adicionar() throws SQLException{
@@ -67,7 +68,7 @@ public class LoginControl {
 		return permission;
 	}
 	public void setPermissionProperty(IntegerProperty permission) {
-		permission = permission;
+		this.permission = permission;
 	}
 	
 	public static Cliente getCliente() {

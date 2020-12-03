@@ -240,10 +240,10 @@ INSERT INTO aviao (empresa, modelo, qtd_lugares, preco)	VALUES
 ('MILLENIUM', 'R2D2', '300', 2.1),
 ('MILLENIUM', 'GTAV', '200', 2.0),
 ('MILLENIUM', 'RDR', '400', 3.5)
-
-SELECT * FROM cliente ORDER BY nome asc 
+USE aeroporto
+SELECT nome + ' ' + sobrenome AS nome_completo FROM cliente ORDER BY LEN(nome + sobrenome) desc 
 SELECT * FROM cliente WHERE email = 'cliente'
-SELECT * FROM usuario WHERE usuario = 'admin'ORDER BY usuario asc
+SELECT * FROM usuario WHERE usuario = 'r.montgomery@gmail.com'ORDER BY usuario asc
 SELECT cpf, nome, sobrenome, data_nasc, email, numero, logradouro, bairro, cep FROM cliente WHERE email = 'admin'
 SELECT * FROM destino
 SELECT * FROM aviao 

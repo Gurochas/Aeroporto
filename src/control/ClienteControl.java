@@ -59,6 +59,7 @@ public class ClienteControl {
 	public void atualizar() throws SQLException {
 		ClienteDAO clienteDAO = new ClienteDAO();
 		clienteDAO.atualizarCliente(getCliente());
+		LoginControl.setCliente(getCliente());
 	}
 	
 	public void buscar () throws SQLException {

@@ -31,13 +31,14 @@ public class LoginDAO implements ILoginDAO {
 	public void atualizarLogin(Login l) throws SQLException {
 		StringBuffer sql = new StringBuffer();
 		sql.append("UPDATE usuario ");
-		sql.append("SET usuario = ?, senha = ?, permissao = ?");
+		sql.append("SET usuario = ?, senha = ?, permissao = ? ");
 		sql.append("WHERE usuario = ?");
 		
 		PreparedStatement ps = c.prepareStatement(sql.toString());
 		ps.setString(1, l.getUser());
 		ps.setString(2, l.getPass());
 		ps.setInt(3, l.getPermission());
+		ps.setString(4, l.getUser());
 
 		ps.execute();
 		ps.close();

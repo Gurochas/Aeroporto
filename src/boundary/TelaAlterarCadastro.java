@@ -32,19 +32,19 @@ import javafx.util.converter.LocalDateStringConverter;
 
 public class TelaAlterarCadastro extends TelaMaeCliente implements SubTela, EventHandler<ActionEvent> {
 
-	TextField txtNome = new TextField();
-	TextField txtSobrenome = new TextField();
-	TextField txtCpf = new TextField();
-	TextField txtNasc = new TextField();
-	TextField txtEmail = new TextField();
-	TextField txtLogradouro = new TextField();
-	TextField txtNumero = new TextField();
-	TextField txtBairro = new TextField();
-	TextField txtCep = new TextField();
-	TextField txtSenha = new TextField();
+	private TextField txtNome = new TextField();
+	private TextField txtSobrenome = new TextField();
+	private TextField txtCpf = new TextField();
+	private TextField txtNasc = new TextField();
+	private TextField txtEmail = new TextField();
+	private TextField txtLogradouro = new TextField();
+	private TextField txtNumero = new TextField();
+	private TextField txtBairro = new TextField();
+	private TextField txtCep = new TextField();
+	private TextField txtSenha = new TextField();
 
-	ClienteControl clienteControl = new ClienteControl();
-	LoginControl loginControl = new LoginControl();
+	private ClienteControl clienteControl = new ClienteControl();
+	private LoginControl loginControl = new LoginControl();
 
 	@Override
 	public Pane gerarTela() {
@@ -97,8 +97,6 @@ public class TelaAlterarCadastro extends TelaMaeCliente implements SubTela, Even
 
 		dateField(txtNasc);
 		
-		loginControl.setLogin(LoginControl.getLoginG());
-		clienteControl.setCliente(LoginControl.getCliente());
 		vincularCampos();
 
 		BorderPane telaPrincipal = new BorderPane();
@@ -108,6 +106,9 @@ public class TelaAlterarCadastro extends TelaMaeCliente implements SubTela, Even
 	}
 
 	private void vincularCampos() {
+		loginControl.setLogin(LoginControl.getLoginG());
+		clienteControl.setCliente(LoginControl.getCliente());
+		
 		StringConverter<? extends Number> converter = new IntegerStringConverter();
 		
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -132,31 +133,17 @@ public class TelaAlterarCadastro extends TelaMaeCliente implements SubTela, Even
 		Bindings.bindBidirectional(txtBairro.textProperty(), clienteControl.getBairroProperty());
 		Bindings.bindBidirectional(txtCep.textProperty(), clienteControl.getCepProperty());
 		Bindings.bindBidirectional(txtSenha.textProperty(), loginControl.getPassProperty());
-
-	}
-
-	private void limparCampos() {
-		txtNome.clear();
-		txtSobrenome.clear();
-		txtCpf.clear();
-		txtNasc.clear();
-		txtEmail.clear();
-		txtLogradouro.clear();
-		txtNumero.clear();
-		txtBairro.clear();
-		txtCep.clear();
-		txtSenha.clear();
+		
 	}
 
 	@Override
-	public void handle(ActionEvent arg0) {
+	public void handle(ActionEvent e) {
 		try {
 			regData();
 			clienteControl.atualizar();
 			loginControl.atualizar();
 			Alert a = new Alert(AlertType.CONFIRMATION, "Cadastro realizado!", ButtonType.OK);
 			a.show();
-			limparCampos();
 		} catch (SQLException e1) {
 			Alert a = new Alert(AlertType.ERROR, "Erro ao atualizar o cadastro", ButtonType.OK);
 			a.show();
