@@ -41,6 +41,11 @@ public class LoginControl {
 		return l;
 	}
 	
+	public void atualizar() throws SQLException {
+		LoginDAO loginDAO = new LoginDAO();
+		loginDAO.atualizarLogin(getLogin());
+	}
+	
 	public void adicionar() throws SQLException{
 		LoginDAO loginDAO = new LoginDAO();
 		Login l = getLogin();
@@ -72,5 +77,5 @@ public class LoginControl {
 	public static void setCliente(Cliente cliente) {
 		LoginControl.cliente = cliente;
 	}
-	
+
 }

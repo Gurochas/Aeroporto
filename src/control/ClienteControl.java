@@ -63,7 +63,7 @@ public class ClienteControl {
 	
 	public void buscar () throws SQLException {
 		ClienteDAO clienteDAO = new ClienteDAO();
-		clienteDAO.buscarCliente(getCliente());
+		setCliente(clienteDAO.buscarCliente(getCliente()));
 	}
 	
 	public void adicionar() throws SQLException {

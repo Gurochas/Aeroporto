@@ -139,13 +139,13 @@ public class TelaAlterarCadastro extends TelaMaeCliente implements SubTela, Even
 	public void handle(ActionEvent arg0) {
 		try {
 			regData();
-			clienteControl.adicionar();
-			loginControl.adicionar();
+			clienteControl.atualizar();
+			loginControl.atualizar();
 			Alert a = new Alert(AlertType.CONFIRMATION, "Cadastro realizado!", ButtonType.OK);
 			a.show();
 			limparCampos();
 		} catch (SQLException e1) {
-			Alert a = new Alert(AlertType.ERROR, "Erro ao gravar o contato", ButtonType.OK);
+			Alert a = new Alert(AlertType.ERROR, "Erro ao atualizar o cadastro", ButtonType.OK);
 			a.show();
 			e1.printStackTrace();
 		}
