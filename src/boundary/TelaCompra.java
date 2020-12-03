@@ -1,11 +1,17 @@
 package boundary;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+import control.ClienteControl;
+import control.CompraControl;
+import control.LoginControl;
+import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -20,7 +26,20 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 public class TelaCompra extends TelaMaeCliente implements SubTela {
+	
+	Label lblTicketOrigem = new Label("São Paulo");
+	Label lblTicketDestino = new Label("");
+	Label lblTicketNome = new Label("Gabriel E. Vicente Darbone");
+	Label lblTicketDataIda = new Label("");
+	Label lblTicketHorarioIda = new Label("");
+	Label lblTicketClasse = new Label("");
+	Label lblTicketDataVolta = new Label("");
 
+	ChoiceBox<String> cbClasse = new ChoiceBox<>();
+	TextField txtQtd = new TextField();
+	TextField txtDestino = new TextField();
+	TextField txtIda = new TextField();
+	TextField txtVolta = new TextField();
 	@Override
 	public Pane gerarTela() {
 
@@ -32,26 +51,23 @@ public class TelaCompra extends TelaMaeCliente implements SubTela {
 
 		gp.setAlignment(Pos.CENTER);
 
+		vincularCampos();
 		Label lblDestino = new Label("Destino");
 		Label lblIda = new Label("Ida");
 		Label lblVolta = new Label("Volta");
 		Label lblClasse = new Label("Classe");
 		Label lblQtd = new Label("Quantidade");
 
-		TextField txtQtd = new TextField();
-		TextField txtDestino = new TextField();
 
 		CheckBox cb = new CheckBox();
 		cb.setText("Ida e volta");
 
-		DatePicker dpIda = new DatePicker();
-		DatePicker dpVolta = new DatePicker();
 
-		ChoiceBox<String> cbClasse = new ChoiceBox<>();
+
 
 		Button btnFinalizar = new Button("Finalizar Compra");
 
-		cbClasse.getItems().addAll("Economica", "Executiva", "Primeira Classe");
+		cbClasse.getItems().addAll("Economica", "Executiva", "Primeira");
 
 //		btnFinalizar.setOnAction((e) -> {
 //			if(cbClasse.getValue().equals("Executiva")) {
@@ -71,29 +87,29 @@ public class TelaCompra extends TelaMaeCliente implements SubTela {
 		gp.add(cb, 0, 2);
 
 		gp.add(lblIda, 0, 3);
-		gp.add(dpIda, 0, 4);
+		gp.add(txtIda, 0, 4);
 
 		gp.add(lblVolta, 1, 3);
-		gp.add(dpVolta, 1, 4);
+		gp.add(txtVolta, 1, 4);
 
 		lblVolta.setVisible(false);
-		dpVolta.setVisible(false);
+		txtVolta.setVisible(false);
 
 		cb.setOnAction((e) -> {
 			if (cb.isSelected()) {
 				lblVolta.setVisible(true);
-				dpVolta.setVisible(true);
+				txtVolta.setVisible(true);
 			} else {
 				lblVolta.setVisible(false);
-				dpVolta.setVisible(false);
+				txtVolta.setVisible(false);
 			}
 		});
 
 		if (cb.isSelected()) {
 			lblVolta.setVisible(false);
-			dpVolta.setVisible(false);
+			txtVolta.setVisible(false);
 			gp.add(lblVolta, 1, 4);
-			gp.add(dpVolta, 1, 4);
+			gp.add(txtVolta, 1, 4);
 		}
 
 		gp.add(lblClasse, 0, 5);
@@ -101,25 +117,17 @@ public class TelaCompra extends TelaMaeCliente implements SubTela {
 	
 		
 		gp.add(btnFinalizar, 1, 6);
-		Label lblTicketOrigem = new Label("São Paulo");
 		lblTicketOrigem.setFont(new Font("Arial", 16));
 		lblTicketOrigem.setTextFill(Color.WHITE);
-		Label lblTicketDestino = new Label("Bahia");
 		lblTicketDestino.setFont(new Font("Arial", 16));
 		lblTicketDestino.setTextFill(Color.WHITE);
-		Label lblTicketNome = new Label("Gabriel E. Vicente Darbone");
 		lblTicketNome.setFont(new Font("Arial", 16));
 		lblTicketNome.setTextFill(Color.WHITE);
-		Label lblTicketDataIda = new Label("12/03/2021");
 		lblTicketDataIda.setFont(new Font("Arial", 16));
 		lblTicketDataIda.setTextFill(Color.WHITE);
-		Label lblTicketDataVolta = new Label("17/03/2021");
-		lblTicketDataVolta.setFont(new Font("Arial", 16));
 		lblTicketDataVolta.setTextFill(Color.WHITE);
-		Label lblTicketHorarioIda = new Label("12:00");
 		lblTicketHorarioIda.setFont(new Font("Arial", 16));
 		lblTicketHorarioIda.setTextFill(Color.WHITE);
-		Label lblTicketClasse = new Label("Standard");
 		lblTicketClasse.setFont(new Font("Arial", 16));
 		lblTicketClasse.setTextFill(Color.WHITE);
 
@@ -143,5 +151,24 @@ public class TelaCompra extends TelaMaeCliente implements SubTela {
 		telaPrincipal.setRight(sp);
 		return telaPrincipal;
 	}
+	
+	
+	
+	private void vincularCampos() {
+		ClienteControl cliControl = new ClienteControl();
+		cliControl.setCliente(LoginControl.getCliente());
+
+		Bindings.bindBidirectional(lblTicketNome.textProperty(), cliControl.getNomeProperty());
+		Bindings.bindBidirectional(txtDestino.textProperty(), lblTicketDestino.textProperty());
+		Bindings.bindBidirectional((txtIda).textProperty(), lblTicketDataIda.textProperty());
+		Bindings.bindBidirectional((txtVolta).textProperty(), lblTicketDataVolta.textProperty());
+		Bindings.bindBidirectional(cbClasse.valueProperty(), lblTicketClasse.textProperty());
+		//Bindings.bindBidirectional(txtLogradouro.textProperty(), lblTicketHorarioIda.textProperty());
+		
+	}
+	
+	
+	
+	
 
 }
