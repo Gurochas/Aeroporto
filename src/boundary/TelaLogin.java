@@ -104,6 +104,10 @@ public class TelaLogin extends TelaMaeDog implements SubTela, EventHandler<Actio
 			try {
 				Login l = loginControl.buscar();
 				if(l.getPermission() == 1) {
+					Cliente c = new Cliente();
+					c.setEmail(txtUsuario.getText());
+					clienteControl.buscar();
+					LoginControl.setCliente(clienteControl.getCliente());
 					tControl.trocarTela("TelaCompra");
 				} else if (l.getPermission() == 2){
 					tControl.trocarTela("TelaDestinos");
@@ -111,12 +115,6 @@ public class TelaLogin extends TelaMaeDog implements SubTela, EventHandler<Actio
 					Alert a = new Alert(AlertType.ERROR, "Usuario ou Senha inválidos");
 					a.show();
 				}
-				
-				Cliente c = new Cliente();
-				c.setEmail(txtUsuario.getText());
-				c = clienteControl.buscar(c);
-				LoginControl.setCliente(c);
-				
 			} catch (SQLException e1) {
 				Alert a = new Alert(AlertType.ERROR, "Error");
 				a.show();

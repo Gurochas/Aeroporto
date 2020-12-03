@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import entity.Classe;
 import entity.Cliente;
 import entity.Compra;
+import entity.Destino;
 import entity.Passagem;
 import entity.Viagem;
 import javafx.beans.property.DoubleProperty;
@@ -16,6 +17,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import persistence.PassagemDAO;
 
@@ -30,6 +32,8 @@ public class PassagemControl {
 	private ObjectProperty<Viagem> viagem = new SimpleObjectProperty<>();
 	private ObjectProperty<Compra> compra  = new SimpleObjectProperty<>();
 	private ObjectProperty<Classe> classe  = new SimpleObjectProperty<>();
+	
+	private ObservableList<Passagem> lista = FXCollections.observableArrayList();
 	
 	public Passagem getPassagem() {
 		Passagem d = new Passagem();
@@ -63,12 +67,12 @@ public class PassagemControl {
 		return d;
 	}
 	
-//	public ObservableList<Passagem> buscarPassagems() throws SQLException{
-//		PassagemDAO destinoDAO = new PassagemDAO();
-//		lista.clear();
-//		lista.addAll(destinoDAO.buscarPassagems());
-//		return lista;
-//	}
+	public ObservableList<Passagem> buscarPassagems() throws SQLException{
+		PassagemDAO passagemDAO = new PassagemDAO();
+		lista.clear();
+		lista.addAll(passagemDAO.buscarPassagens(getPassagem()));
+		return lista;
+	}
 	
 	public IntegerProperty getCodigo() {
 		return codigo;
