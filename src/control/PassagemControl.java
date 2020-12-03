@@ -28,10 +28,10 @@ public class PassagemControl {
 	private IntegerProperty portao = new SimpleIntegerProperty();
 	private IntegerProperty lugar = new SimpleIntegerProperty();
 	private StringProperty tipo_viagem = new SimpleStringProperty();
-	private ObjectProperty<Cliente> cliente  = new SimpleObjectProperty<>();
-	private ObjectProperty<Viagem> viagem = new SimpleObjectProperty<>();
-	private ObjectProperty<Compra> compra  = new SimpleObjectProperty<>();
-	private ObjectProperty<Classe> classe  = new SimpleObjectProperty<>();
+	private ClienteControl cliente  = new ClienteControl();
+	private ViagemControl viagem  = new ViagemControl();
+	private CompraControl compra  = new CompraControl();
+	private ClasseControl classe  = new ClasseControl();
 	
 	private ObservableList<Passagem> lista = FXCollections.observableArrayList();
 	
@@ -48,10 +48,10 @@ public class PassagemControl {
 			this.portao.set(p.getPortao());
 			this.lugar.set(p.getLugar());
 			this.tipo_viagem.set(p.getTipo_viagem());
-			this.cliente.set(p.getCliente());
-			this.viagem.set(p.getViagem());
-			this.compra.set(p.getCompra());
-			this.classe.set(p.getClasse());
+			this.cliente.setCliente(p.getCliente());
+			this.viagem.setViagem(p.getViagem());
+			this.compra.setCompra(p.getCompra());
+			this.classe.setClasse(p.getClasse());
 		}
 	}
 	
@@ -104,29 +104,39 @@ public class PassagemControl {
 	public void setTipo_viagemProperty(StringProperty tipo_viagem) {
 		this.tipo_viagem = tipo_viagem;
 	}
-	public ObjectProperty<Cliente> getClienteProperty() {
+
+	public ClienteControl getCliente() {
 		return cliente;
 	}
-	public void setClienteProperty(ObjectProperty<Cliente> cliente) {
+
+	public void setCliente(ClienteControl cliente) {
 		this.cliente = cliente;
 	}
-	public ObjectProperty<Viagem> getViagemProperty() {
+
+	public ViagemControl getViagem() {
 		return viagem;
 	}
-	public void setViagemProperty(ObjectProperty<Viagem> viagem) {
+
+	public void setViagem(ViagemControl viagem) {
 		this.viagem = viagem;
 	}
-	public ObjectProperty<Compra> getCompraProperty() {
+
+	public CompraControl getCompra() {
 		return compra;
 	}
-	public void setCompraProperty(ObjectProperty<Compra> compra) {
+
+	public void setCompra(CompraControl compra) {
 		this.compra = compra;
 	}
-	public ObjectProperty<Classe> getClasseProperty() {
+
+	public ClasseControl getClasse() {
 		return classe;
 	}
-	public void setClasseProperty(ObjectProperty<Classe> classe) {
+
+	public void setClasse(ClasseControl classe) {
 		this.classe = classe;
 	}
+	
+
 	
 }
