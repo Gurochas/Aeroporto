@@ -4,6 +4,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 import control.ClienteControl;
+import control.CompraControl;
 import control.DestinoControl;
 import control.LoginControl;
 import control.PassagemControl;
@@ -50,15 +51,15 @@ public class TelaCompra extends TelaMaeCliente implements SubTela, EventHandler<
 	private TextField txtDestino = new TextField();
 	private TextField txtIda = new TextField();
 	private TextField txtVolta = new TextField();
-	
-	private ClienteControl cliControl = new ClienteControl();
-	
-	private ViagemControl viControl = new ViagemControl();
-	
-	private DestinoControl dControl = new DestinoControl();
-	
-	private PassagemControl pasControl = new PassagemControl();
-	
+//	
+//	private ClienteControl cliControl = new ClienteControl();
+//	
+//	private ViagemControl viControl = new ViagemControl();
+//	
+//	private DestinoControl dControl = new DestinoControl();
+//	
+//	private PassagemControl pasControl = new PassagemControl();
+//	
 	
 	@Override
 	public Pane gerarTela() {
@@ -186,7 +187,17 @@ public class TelaCompra extends TelaMaeCliente implements SubTela, EventHandler<
 	
 	
 	private void vincularCampos() {
-		
+		ClienteControl cliControl = new ClienteControl();
+		CompraControl cpControl = new CompraControl();
+
+		PassagemControl pasControl = new PassagemControl();
+
+			ViagemControl viControl = new ViagemControl();
+
+				DestinoControl dControl = new DestinoControl();
+
+
+
 		DateTimeFormatter tf = DateTimeFormatter.ofPattern("HH:mm");
 		StringConverter<LocalTime> timeConverter = new LocalTimeStringConverter(tf, tf);
 		
@@ -202,12 +213,12 @@ public class TelaCompra extends TelaMaeCliente implements SubTela, EventHandler<
 		Bindings.bindBidirectional(lblTicketHorarioIda.textProperty(), viControl.getHoraProperty(), timeConverter);
 		
 		//Bind com Destino
-		Bindings.bindBidirectional(txtDestino.textProperty(), viControl.getDestinoControl().getDestinoProperty());
+		Bindings.bindBidirectional(txtDestino.textProperty(), dControl.getDestinoProperty());
 		
 		//Bind com Passagem
-//		Bindings.bindBidirectional(, pasControl.getTipo_viagemProperty());
-//		Bindings.bindBidirectional(cbClasse.valueProperty(), pasControl.getClasseProperty());
-//		
+		Bindings.bindBidirectional(cbClasse.valueProperty(), pasControl.getClasseProperty());
+		
+		
 		
 		
 		
