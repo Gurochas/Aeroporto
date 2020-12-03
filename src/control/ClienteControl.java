@@ -56,10 +56,14 @@ public class ClienteControl {
 		}
 	}
 	
-	public Cliente buscar (Cliente c) throws SQLException {
+	public void atualizar() throws SQLException {
 		ClienteDAO clienteDAO = new ClienteDAO();
-		c = clienteDAO.buscarCliente(c);
-		return c;
+		clienteDAO.atualizarCliente(getCliente());
+	}
+	
+	public void buscar () throws SQLException {
+		ClienteDAO clienteDAO = new ClienteDAO();
+		clienteDAO.buscarCliente(getCliente());
 	}
 	
 	public void adicionar() throws SQLException {

@@ -114,8 +114,8 @@ public class TelaLogin extends TelaMaeDog implements SubTela, EventHandler<Actio
 				
 				Cliente c = new Cliente();
 				c.setEmail(txtUsuario.getText());
-				c = clienteControl.buscar(c);
-				LoginControl.setCliente(c);
+				clienteControl.buscar();
+				LoginControl.setCliente(clienteControl.getCliente());
 				
 			} catch (SQLException e1) {
 				Alert a = new Alert(AlertType.ERROR, "Error");

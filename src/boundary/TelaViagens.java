@@ -1,28 +1,32 @@
 package boundary;
 
-import entity.Compra;
+import java.sql.SQLException;
+
+import control.DestinoControl;
+import control.ViagemControl;
+import entity.Viagem;
+import javafx.event.ActionEvent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
 public class TelaViagens extends TelaMaeAdm implements SubTela {
+	
+    TableView<Viagem> table = new TableView<>(); 
+	ViagemControl vControl= new ViagemControl();
+
 
     @Override
     public Pane gerarTela() {
     	
-        TableView<Compra> table = new TableView<>(); 
-
         table.setPrefWidth(362);
 
-        TableColumn<Compra, String> colData = new TableColumn<>("Data");
-        TableColumn<Compra, String> colHChegada = new TableColumn<>("Horário Chegada");
-        TableColumn<Compra, String> colHSaida = new TableColumn<>("Horário Saída");
-        TableColumn<Compra, String> colCodAviao = new TableColumn<>("Cod. Avião");
-        TableColumn<Compra, String> colDestino = new TableColumn<>("Destino");
-
-
-        table.getColumns().addAll(colData, colHChegada, colHSaida, colCodAviao, colDestino);
+        vincularCampos();
 
 //        table.resizeColumn(colData, 100);
 //        table.resizeColumn(colHChegada, 100);
@@ -42,5 +46,45 @@ public class TelaViagens extends TelaMaeAdm implements SubTela {
         telaPrincipal.setCenter(table);
         return telaPrincipal;
     }
+    
+    private void vincularCampos() {
+    	
+    	TableColumn<Viagem, Integer> colID = new TableColumn<>("ID");
+        colID.setCellValueFactory( new PropertyValueFactory<Viagem, Integer>("Codigo"));
+        
+        TableColumn<Viagem, String> colData = new TableColumn<>("Data");    	
+        colData.setCellValueFactory( new PropertyValueFactory<Viagem, String>("Data"));
+        
+        TableColumn<Viagem, Double> colHora = new TableColumn<>("Hora");
+        colHora.setCellValueFactory(new PropertyValueFactory<Viagem, Double>("Hora"));
+        
+        TableColumn<Viagem, Double> colAviao = new TableColumn<>("Avião");
+        colAviao.setCellValueFactory(new PropertyValueFactory<Viagem, Double>("Avião"));
+        
+        TableColumn<Viagem, Double> colDestino = new TableColumn<>("Destino");
+        colDestino.setCellValueFactory(new PropertyValueFactory<Viagem, Double>("Destino"));
+        
+        table.setPrefWidth(362);
 
+        table.getColumns().addAll(colID,colData,colHora,colAviao, colDestino);
+        
+        /*
+        table.resizeColumn(colID, 10);
+        table.resizeColumn(colDestino, 80);
+        table.resizeColumn(colPreco, 30);
+        colID.setResizable(false);
+        colDestino.setResizable(false);
+        colPreco.setResizable(false);
+        */
+        
+        atualizarTabela();
+    }
+    
+    public void atualizarTabela() {
+    	try {
+			table.setItems(vControl.buscarViagens());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    }
 }

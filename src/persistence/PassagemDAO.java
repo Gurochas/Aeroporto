@@ -126,7 +126,7 @@ public class PassagemDAO implements IPassagemDAO {
 		ResultSet rs = ps.executeQuery();
 		
 		while(rs.next()) {
-			
+			p = new Passagem();
 			//Passagem 
 			p.setCodigo(rs.getInt("codigo_passagem"));
 			p.setPreco_Total(rs.getDouble("preco_total"));
