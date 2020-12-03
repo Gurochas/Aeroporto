@@ -1,11 +1,13 @@
 package control;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 
 import entity.Cliente;
 import entity.Compra;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
+import persistence.CompraDAO;
 
 public class CompraControl {
 
@@ -29,8 +31,16 @@ public class CompraControl {
 		}
 	}
 	
-	public void adicionar () {
-		
+	public void adicionar() throws SQLException {
+		CompraDAO compraDAO = new CompraDAO();
+		Compra c = getCompra();
+		compraDAO.inserirCompra(c);
+	}
+	
+	public Compra buscarCompra (Compra c) throws SQLException {
+		CompraDAO compraDAO = new CompraDAO();
+		c = compraDAO.buscarCompra(c);
+		return c;
 	}
 	
 	public IntegerProperty getCodigo() {
