@@ -242,6 +242,7 @@ INSERT INTO aviao (empresa, modelo, qtd_lugares, preco)	VALUES
 ('MILLENIUM', 'RDR', '400', 3.5)
 USE aeroporto
 SELECT nome + ' ' + sobrenome AS nome_completo FROM cliente ORDER BY LEN(nome + sobrenome) desc 
+SELECT d.destino FROM destino d ORDER BY LEN(d.destino) DESC
 SELECT * FROM cliente WHERE email = 'cliente'
 SELECT * FROM usuario WHERE usuario = 'r.montgomery@gmail.com'ORDER BY usuario asc
 SELECT cpf, nome, sobrenome, data_nasc, email, numero, logradouro, bairro, cep FROM cliente WHERE email = 'admin'

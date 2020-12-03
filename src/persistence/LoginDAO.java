@@ -28,18 +28,10 @@ public class LoginDAO implements ILoginDAO {
 	}
 
 	@Override
-	public void atualizarLogin(Login l) throws SQLException {
-		StringBuffer sql = new StringBuffer();
-		sql.append("UPDATE usuario ");
-		sql.append("SET usuario = ?, senha = ?, permissao = ? ");
-		sql.append("WHERE usuario = ?");
-		
-		PreparedStatement ps = c.prepareStatement(sql.toString());
+	public void excluiLogin(Login l) throws SQLException {
+		String sql = "DELETE usuario WHERE usuario = ?";
+		PreparedStatement ps = c.prepareStatement(sql);
 		ps.setString(1, l.getUser());
-		ps.setString(2, l.getPass());
-		ps.setInt(3, l.getPermission());
-		ps.setString(4, l.getUser());
-
 		ps.execute();
 		ps.close();
 	}

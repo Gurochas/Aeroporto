@@ -1,16 +1,19 @@
 package boundary;
 
-import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 import control.ClienteControl;
-import control.CompraControl;
+import control.DestinoControl;
 import control.LoginControl;
+import control.PassagemControl;
+import control.ViagemControl;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.geometry.HPos;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -29,21 +32,34 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.util.StringConverter;
+import javafx.util.converter.LocalTimeStringConverter;
 
-public class TelaCompra extends TelaMaeCliente implements SubTela {
+public class TelaCompra extends TelaMaeCliente implements SubTela, EventHandler<ActionEvent> {
 	
-	Label lblTicketOrigem = new Label("São Paulo");
-	Label lblTicketDestino = new Label("");
-	Label lblTicketDataIda = new Label("");
-	Label lblTicketHorarioIda = new Label("");
-	Label lblTicketClasse = new Label("");
-	Label lblTicketDataVolta = new Label("");
+	private Label lblTicketOrigem = new Label("São Paulo");
+	private Label lblTicketDestino = new Label("");
+	private Label lblTicketDataIda = new Label("");
+	private Label lblTicketHorarioIda = new Label("");
+	private Label lblTicketClasse = new Label("");
+	private Label lblTicketDataVolta = new Label("");
 
-	ChoiceBox<String> cbClasse = new ChoiceBox<>();
-	TextField txtQtd = new TextField();
-	TextField txtDestino = new TextField();
-	TextField txtIda = new TextField();
-	TextField txtVolta = new TextField();
+	CheckBox cbTipoViagem = new CheckBox();
+	private ChoiceBox<String> cbClasse = new ChoiceBox<>();
+	private TextField txtQtd = new TextField();
+	private TextField txtDestino = new TextField();
+	private TextField txtIda = new TextField();
+	private TextField txtVolta = new TextField();
+	
+	private ClienteControl cliControl = new ClienteControl();
+	
+	private ViagemControl viControl = new ViagemControl();
+	
+	private DestinoControl dControl = new DestinoControl();
+	
+	private PassagemControl pasControl = new PassagemControl();
+	
+	
 	@Override
 	public Pane gerarTela() {
 
@@ -70,15 +86,14 @@ public class TelaCompra extends TelaMaeCliente implements SubTela {
 
 		Label lblTicketNome = new Label(LoginControl.getCliente().getNome() + " " + LoginControl.getCliente().getSobrenome());
 
-		CheckBox cb = new CheckBox();
-		cb.setText("Ida e volta");
+		cbTipoViagem.setText("Ida e volta");
 
 
 
 
 		Button btnFinalizar = new Button("Finalizar Compra");
 
-		cbClasse.getItems().addAll("Economica", "Executiva", "Primeira");
+		cbClasse.getItems().setAll("Economica", "Executiva", "Primeira");
 
 //		btnFinalizar.setOnAction((e) -> {
 //			if(cbClasse.getValue().equals("Executiva")) {
@@ -95,7 +110,7 @@ public class TelaCompra extends TelaMaeCliente implements SubTela {
 		gp.add(lblQtd, 1, 0);
 		gp.add(txtQtd, 1, 1);
 
-		gp.add(cb, 0, 2);
+		gp.add(cbTipoViagem, 0, 2);
 
 		gp.add(lblIda, 0, 3);
 		gp.add(txtIda, 0, 4);
@@ -106,8 +121,8 @@ public class TelaCompra extends TelaMaeCliente implements SubTela {
 		lblVolta.setVisible(false);
 		txtVolta.setVisible(false);
 
-		cb.setOnAction((e) -> {
-			if (cb.isSelected()) {
+		cbTipoViagem.setOnAction((e) -> {
+			if (cbTipoViagem.isSelected()) {
 				lblVolta.setVisible(true);
 				txtVolta.setVisible(true);
 			} else {
@@ -116,12 +131,12 @@ public class TelaCompra extends TelaMaeCliente implements SubTela {
 			}
 		});
 
-		if (cb.isSelected()) {
-			lblVolta.setVisible(false);
-			txtVolta.setVisible(false);
-			gp.add(lblVolta, 1, 4);
-			gp.add(txtVolta, 1, 4);
-		}
+//		if (cbTipoViagem.isSelected()) {
+//			lblVolta.setVisible(false);
+//			txtVolta.setVisible(false);
+//			gp.add(lblVolta, 1, 4);
+//			gp.add(txtVolta, 1, 4);
+//		}
 
 		gp.add(lblClasse, 0, 5);
 		gp.add(cbClasse, 0, 6);
@@ -157,6 +172,8 @@ public class TelaCompra extends TelaMaeCliente implements SubTela {
 		gpTicket.add(lblTicketHorarioIda, 0, 55);
 		gpTicket.add(lblTicketClasse, 1, 55);
 		
+		btnFinalizar.setOnAction(this);
+		
 		dateField(txtIda);
 		dateField(txtVolta);
 
@@ -169,14 +186,39 @@ public class TelaCompra extends TelaMaeCliente implements SubTela {
 	
 	
 	private void vincularCampos() {
-		ClienteControl cliControl = new ClienteControl();
+		
+		DateTimeFormatter tf = DateTimeFormatter.ofPattern("HH:mm");
+		StringConverter<LocalTime> timeConverter = new LocalTimeStringConverter(tf, tf);
+		
 		cliControl.setCliente(LoginControl.getCliente());
 
+		//Bind TextFields com Labels 
 		Bindings.bindBidirectional(txtDestino.textProperty(), lblTicketDestino.textProperty());
 		Bindings.bindBidirectional((txtIda).textProperty(), lblTicketDataIda.textProperty());
 		Bindings.bindBidirectional((txtVolta).textProperty(), lblTicketDataVolta.textProperty());
 		Bindings.bindBidirectional(cbClasse.valueProperty(), lblTicketClasse.textProperty());
-		//Bindings.bindBidirectional(txtLogradouro.textProperty(), lblTicketHorarioIda.textProperty());
+		
+		//Bind ViagemControl
+		Bindings.bindBidirectional(lblTicketHorarioIda.textProperty(), viControl.getHoraProperty(), timeConverter);
+		
+		//Bind com Destino
+		Bindings.bindBidirectional(txtDestino.textProperty(), viControl.getDestinoControl().getDestinoProperty());
+		
+		//Bind com Passagem
+//		Bindings.bindBidirectional(, pasControl.getTipo_viagemProperty());
+//		Bindings.bindBidirectional(cbClasse.valueProperty(), pasControl.getClasseProperty());
+//		
+		
+		
+		
+	}
+	
+	@Override
+	public void handle(ActionEvent e) {
+		
+	//	gerarPassagens();
+		
+		
 		
 	}
 	
@@ -216,9 +258,5 @@ public class TelaCompra extends TelaMaeCliente implements SubTela {
 			}
 		});
 	}
-	
-	
-	
-	
 
 }

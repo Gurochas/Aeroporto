@@ -16,20 +16,21 @@ import javafx.collections.ObservableList;
 import persistence.ViagemDAO;
 
 public class ViagemControl {
+	
 	private ObservableList<Viagem> lista = FXCollections.observableArrayList();
 	private IntegerProperty codigo = new SimpleIntegerProperty();
 	private ObjectProperty<LocalDate> data = new SimpleObjectProperty<>();
 	private ObjectProperty<LocalTime> hora = new SimpleObjectProperty<>();
-	private ObjectProperty<Aviao> aviao = new SimpleObjectProperty<>();
-	private ObjectProperty<Destino> destino = new SimpleObjectProperty<>();
+	private AviaoControl aviao = new AviaoControl();
+	private DestinoControl destino = new DestinoControl();
 	
 	public Viagem getViagem() {
 		Viagem v = new Viagem();
 		v.setCodigo(this.codigo.get());
 		v.setData(this.data.get());
 		v.setHora(this.hora.get());
-		v.setAviao(this.aviao.get());
-		v.setDestino(this.destino.get());
+		v.setAviao(this.aviao.getAviao());
+		v.setDestino(this.destino.getDestino());
 		return v;
 	}
 	
@@ -38,8 +39,8 @@ public class ViagemControl {
 			this.codigo.set(v.getCodigo());
 			this.data.set(v.getData());
 			this.hora.set(v.getHora());
-			this.aviao.set(v.getAviao());
-			this.destino.set(v.getDestino());
+			this.aviao.setAviao(v.getAviao());
+			this.destino.setDestino(v.getDestino());
 		}
 	}
 	
@@ -86,19 +87,19 @@ public class ViagemControl {
 		this.hora = hora;
 	}
 
-	public ObjectProperty<Aviao> getAviaoProperty() {
+	public AviaoControl getAviaoControl() {
 		return aviao;
 	}
 
-	public void setAviaoProperty(ObjectProperty<Aviao> aviao) {
+	public void setAviaoControl(AviaoControl aviao) {
 		this.aviao = aviao;
 	}
 
-	public ObjectProperty<Destino> getDestinoProperty() {
+	public DestinoControl getDestinoControl() {
 		return destino;
 	}
 
-	public void setDestinoProperty(ObjectProperty<Destino> destino) {
+	public void setDestinoControl (DestinoControl destino) {
 		this.destino = destino;
 	}
 	

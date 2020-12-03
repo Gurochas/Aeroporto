@@ -40,16 +40,16 @@ public class LoginControl {
 		setLogin(loginDAO.buscarLogin(getLogin()));
 	}
 	
-	public void atualizar() throws SQLException {
+	public void excluir() throws SQLException {
 		LoginDAO loginDAO = new LoginDAO();
-		loginDAO.atualizarLogin(getLogin());
-		LoginControl.setLoginG(getLogin());
+		loginDAO.excluiLogin(getLoginG());
 	}
 	
 	public void adicionar() throws SQLException{
 		LoginDAO loginDAO = new LoginDAO();
 		Login l = getLogin();
 		loginDAO.inserirLogin(l);
+		LoginControl.setLoginG(getLogin());
 	}
 	
 	public StringProperty getUserProperty() {

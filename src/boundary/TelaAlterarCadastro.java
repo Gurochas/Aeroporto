@@ -140,8 +140,9 @@ public class TelaAlterarCadastro extends TelaMaeCliente implements SubTela, Even
 	public void handle(ActionEvent e) {
 		try {
 			regData();
+			loginControl.excluir();
 			clienteControl.atualizar();
-			loginControl.atualizar();
+			loginControl.adicionar();
 			Alert a = new Alert(AlertType.CONFIRMATION, "Cadastro realizado!", ButtonType.OK);
 			a.show();
 		} catch (SQLException e1) {
