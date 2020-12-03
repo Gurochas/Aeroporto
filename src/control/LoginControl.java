@@ -13,12 +13,13 @@ import persistence.LoginDAO;
 public class LoginControl {
 	
 	private static Cliente cliente;
+	private static Login login;
 	
 	private StringProperty user = new SimpleStringProperty();
 	private StringProperty pass = new SimpleStringProperty();
 	private IntegerProperty permission = new SimpleIntegerProperty();
 	
-	private Login getLogin() {
+	public Login getLogin() {
 		Login l = new Login();
 		l.setUser(this.user.get());
 		l.setPass(this.pass.get());
@@ -26,19 +27,17 @@ public class LoginControl {
 		return l;
 	}
 	
-	private void setLogin(Login l) {
-		if(l == null) {
+	public void setLogin(Login l) {
+		if(l != null) {
 			this.user.set(l.getUser());
 			this.pass.set(l.getPass());
 			this.permission.set(l.getPermission());
 		}
 	}
 	
-	public Login buscar () throws SQLException {
+	public void buscar () throws SQLException {
 		LoginDAO loginDAO = new LoginDAO();
-		Login l = getLogin();
-		loginDAO.buscarLogin(l);
-		return l;
+		setLogin(loginDAO.buscarLogin(getLogin()));
 	}
 	
 	public void atualizar() throws SQLException {
@@ -76,6 +75,13 @@ public class LoginControl {
 	}
 	public static void setCliente(Cliente cliente) {
 		LoginControl.cliente = cliente;
+	}
+	
+	public static Login getLoginG() {
+		return LoginControl.login;
+	}
+	public static void setLoginG(Login login) {
+		LoginControl.login = login;
 	}
 
 }
