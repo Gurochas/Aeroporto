@@ -1,10 +1,14 @@
 package boundary;
 
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import entity.Compra;
+import entity.Destino;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
@@ -19,13 +23,22 @@ public class TelaComprasAnteriores extends TelaMaeCliente
 		TableView<Compra> table = new TableView<>(); 
 		
 		telaPrincipal.setCenter(table);
-
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		
+		
 		// Criando a tabela ID precisamos criar as nossas
 		TableColumn<Compra, Integer> colCodigo = new TableColumn<>("Codigo da Compra"); 
-		TableColumn<Compra, Date> colDtCompra = new TableColumn<>("Data da Compra");
+        colCodigo.setCellValueFactory( new PropertyValueFactory<Compra, Integer>("Codigo"));
+		TableColumn<Compra, String> colDtCompra = new TableColumn<>("Data da Compra");
+		colDtCompra.setCellValueFactory(
+				(item) -> {return new ReadOnlyStringWrapper(item.getValue().getData_Compra().format(dtf));});		
 		TableColumn<Compra, String> colClasse = new TableColumn<>("Classe");
+        colClasse.setCellValueFactory( new PropertyValueFactory<Compra, String>("Classe"));
 		TableColumn<Compra, String> colDestino = new TableColumn<>("Destino");
+        colDestino.setCellValueFactory( new PropertyValueFactory<Compra, String>("Destino"));
 		TableColumn<Compra, Double> colValor = new TableColumn<>("Valor");
+        colValor.setCellValueFactory( new PropertyValueFactory<Compra, Double>("Codigo"));
+
 		
 		// Colocando as colunas na table
 		table.getColumns().addAll(colCodigo, colClasse, colDestino, colDtCompra, colValor);

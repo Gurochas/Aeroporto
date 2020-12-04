@@ -216,7 +216,7 @@ public class TelaCompra extends TelaMaeCliente implements SubTela, EventHandler<
 		Bindings.bindBidirectional(txtDestino.textProperty(), dControl.getDestinoProperty());
 		
 		//Bind com Passagem
-		Bindings.bindBidirectional(cbClasse.valueProperty(), pasControl.getClasseProperty());
+		//Bindings.bindBidirectional(cbClasse.valueProperty(), pasControl.getClasseProperty());
 		
 		
 		
